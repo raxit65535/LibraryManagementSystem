@@ -19,6 +19,5 @@ int main()
     //fun.LoadUserData(); //it will creat Uservector to use for login
     //fun.LoadBookData(); //it will create Bookvector for future use (listbook(), requestbookloan()).
 
-    cout<<"commit for slack git channel";
     fun.startup();
 }
