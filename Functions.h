@@ -15,7 +15,5 @@ class Functions
     void issuedBook();                                               //it will load all the data available in IssuedBook.txt and put it in the IssuedBook Vector
     void startup();
     
-    vector<User> Uservector;
-    vector<Book> Bookvector;
-    vector<string> IssuedBookvector;
+
 };

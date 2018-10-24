@@ -8,6 +8,9 @@ using namespace std;
 
 Functions functions;
 
+extern vector<Book> Bookvector;
+extern vector<User> Uservector;
+
 int Customer::RequestBookLoan(std::string isbn)
 {
 
@@ -25,15 +28,18 @@ bool Customer::isAvailable(std::string isbn)
 
 void Customer::listbooks()
 {
+    
     cout << "Listing the Books\n\n";
     
     
     //Functions functions;
-     cout << "printing the Uservector\n\n";
-    for (auto i :  functions.Uservector)
+     cout << "printing the BookVector\n\n";
+    for (auto i :  Bookvector)
     {
 
-        cout << i.getname() + "\t\t" + i.getusername() + "\t\t" + i.getpasswd() + "\t\t" + i.getStatus() + "\n\n";
+        int j = i.getCount();
+        cout << i.getName() + "\t\t" + i.getIsbn() + "\t\t" + i.getAuthor() + "\t\t" + i.getInformation() + "\t\t" << j;
+        cout << "\n";
     }
 
 }
@@ -44,6 +50,8 @@ bool Customer::isAlreadyissued(std::string isbn)
 
 void Customer::customerInterface()
 {
+
+    
 
     int i;
     cout << "\n\t*********** LIBRARY MANAGEMENT SYSTEM - Customer Interface ***********\n";
@@ -76,7 +84,7 @@ void Customer::customerInterface()
     {
         system("clear");
         Functions functions;
-        functions.loginInterface();
+        functions.startup();
     }
     else if (i == 4)
     {

@@ -6,32 +6,42 @@
 #include <string>
 #include <curses.h>
 #include <fstream>
-using std::vector;
 
 using namespace std;
 
 Staff staff;
 Customer customer;
 
+extern vector<User> Uservector;
+extern vector<Book> Bookvector;
+
 int Functions::login(string username, string password)
 {
     //by default transferring to the customer interface
     int status = 0;
-vector<User> Uservector;
-cout << "printing the Uservector\n\n";
-    for (auto i : Uservector)
+
+    for (int i = 0; i < Uservector.size(); i++)
     {
+        string temp_uname = Uservector[i].getusername();
+        string temp_passwd = Uservector[i].getpasswd();
 
-        cout << i.getname() + "\t\t" + i.getusername() + "\t\t" + i.getpasswd() + "\t\t" + i.getStatus() +"\n\n";
-    }
+        //cout <<"contents in the text file\t\t\t" +temp_uname + "\t\t\t" + temp_passwd;
 
-    for (size_t i = 0; i < Uservector.size(); i++ )
-        if (username == Uservector[i].getusername() && password == Uservector[i].getpasswd())
+        if (temp_uname == username && temp_passwd == password)
         {
             // If find username and password in User.txt
             status = 3;
             return status; // Return status
-        } 
+        }
+    }
+
+    cout << "printing the Uservector\n\n";
+    for (auto i : Uservector)
+    {
+
+        cout << i.getname() + "\t\t" + i.getusername() + "\t\t" + i.getpasswd() + "\t\t" + i.getStatus() + "\n\n";
+    }
+
     return status;
 }
 
@@ -40,29 +50,37 @@ int Functions::registration(string name, string username, string password)
 
     //just checking if the username is not available then it should redirect to registrationInterface()
     int registerstatus = 0;
-    vector<User> Uservector;
+    User olduser;
+
     for (size_t i = 0; i < Uservector.size(); i++)
     {
-        if (Uservector[i].getusername() == username) 
-        {   // If find that username, return registerstatus as 0
+        if (Uservector[i].getusername() == username)
+        { // If find that username, return registerstatus as 0
             cout << "User already exist! " << endl;
             return registerstatus;
         }
-    }       
-    ofstream userFile ("User.txt", std::ofstream::out | std::ofstream::app);
+    }
+
+    olduser.setname(name);
+    olduser.setusername(username);
+    olduser.setpassword(password);
+
+    Uservector.push_back(olduser);
+    
+    ofstream userFile("User.txt", std::ofstream::out | std::ofstream::app);
     if (userFile.is_open())
-    {   
+    {
         userFile << name + " " + username + " " + password + " 3";
 
         userFile.close();
         registerstatus = 1;
-        LoadUserData();
+        //LoadUserData();
     }
-    else 
+    else
     {
         cout << "Unable to open User.txt file";
     }
-        return registerstatus;
+    return registerstatus;
 }
 
 void Functions::LoadUserData()
@@ -72,8 +90,6 @@ void Functions::LoadUserData()
     //Globaldata::Uservector;
     User olduser;
     string str;
-
-    //vector<User>  Uservector;
 
     ifstream fin("User.txt"); // Open and read User.txt
     if (!fin)
@@ -100,60 +116,61 @@ void Functions::LoadUserData()
     }
     fin.close(); // Close User.txt
 
-    cout << "printing the Uservector\n\n";
-    for (auto i : Uservector)
-    {
+    // cout << "printing the Uservector\n\n";
+    // for (auto i : Uservector)
+    // {
 
-        cout << i.getname() + "\t\t" + i.getusername() + "\t\t" + i.getpasswd() + "\t\t" + i.getStatus() +"\n\n";
-    }
+    //     cout << i.getname() + "\t\t" + i.getusername() + "\t\t" + i.getpasswd() + "\t\t" + i.getStatus() + "\n\n";
+    // }
 }
 
 void Functions::LoadBookData()
 {
     // std::vector<User> Uservector;
 
-   
     //Bookvector is also a global variable and this method will add the information in the Bookvector, latter we will use these two vectors as and when required
     //Globaldata::Bookvector;
 
     Book oldbook;
     string str;
-    vector<Book> Bookvector;
+
     ifstream fin("Books.txt"); // Open and read Book.txt
-    if(!fin) { // If can't open
+    if (!fin)
+    { // If can't open
         cerr << "Books.txt can't open" << endl;
         abort(); // Exit
     }
-    while (getline(fin, str)) {
-        size_t i = str.find(" "); // Find fisrt spacebar
+    while (getline(fin, str))
+    {
+        size_t i = str.find(" ");          // Find fisrt spacebar
         oldbook.setName(str.substr(0, i)); // Divide str by spacebar and get bookname
-        str = str.substr(i+1);
+        str = str.substr(i + 1);
 
-        i = str.find(" "); // Find second spacebar
+        i = str.find(" ");                 // Find second spacebar
         oldbook.setIsbn(str.substr(0, i)); // Divide str by spacebar and get ISBN number
-        str = str.substr(i+1);
+        str = str.substr(i + 1);
 
         i = str.find(" ");
         oldbook.setAuthor(str.substr(0, i)); // Divide str by spacebar and get author
-        str = str.substr(i+1);
+        str = str.substr(i + 1);
 
         i = str.find(" ");
         oldbook.setInformation(str.substr(0, i)); // Divide str by spacebar and get Information
-        str = str.substr(i+1);
+        str = str.substr(i + 1);
 
         i = str.find(" ");
         oldbook.setCount(stoi(str.substr(0, i))); // Divide str by spacebar and get count
-        cout<<"Count of book is " <<oldbook.getCount();
+        //cout << "Count of book is " << oldbook.getCount();
         Bookvector.push_back(oldbook); // Add to Bookvector
     }
     fin.close(); // Close Books.txt
-    cout << "printing the Bookvector\n\n";
-    for (auto i : Bookvector)
-    {
-        int j = i.getCount();
-        cout << i.getName() + "\t\t" + i.getIsbn() + "\t\t" + i.getAuthor() + "\t\t" + i.getInformation() + "\t\t"<<j;
-        cout<<"\n";
-    }
+    //cout << "printing the Bookvector\n\n";
+    // for (auto i : Bookvector)
+    // {
+    //     int j = i.getCount();
+    //     cout << i.getName() + "\t\t" + i.getIsbn() + "\t\t" + i.getAuthor() + "\t\t" + i.getInformation() + "\t\t" << j;
+    //     cout << "\n";
+    // }
 }
 
 void Functions::loginInterface()
@@ -173,6 +190,7 @@ void Functions::loginInterface()
 
     status = login(username, passwd);
 
+    //cout << "status is:" + status;
     //status = 9;
     if (status == 1)
     {
@@ -237,6 +255,8 @@ void Functions::registrationInterface()
 
 void Functions::startup()
 {
+   
+
 
     int i;
     cout << "\n\t*********** LIBRARY MANAGEMENT SYSTEM - Startup Interface ***********\n";
