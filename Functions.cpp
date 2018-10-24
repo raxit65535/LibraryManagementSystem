@@ -6,6 +6,7 @@
 #include <string>
 #include <curses.h>
 #include <fstream>
+using std::vector;
 
 using namespace std;
 
@@ -38,7 +39,7 @@ void Functions::LoadUserData()
     User olduser;
     string str;
 
-    vector<User> Uservector;
+    //vector<User>  Uservector;
 
     ifstream fin("User.txt"); // Open and read User.txt
     if (!fin)
@@ -59,7 +60,7 @@ void Functions::LoadUserData()
         i = str.find(" ");                     // Find second spacebar
         olduser.setpassword(str.substr(0, i)); // Divide str by spacebar and get password
 
-        olduser.setStatus(str.substr(i+1)); // Divide str by spacebar and get status
+        olduser.setStatus(str.substr(i + 1)); // Divide str by spacebar and get status
 
         Uservector.push_back(olduser); // Add to lib.UserArray
     }
@@ -75,7 +76,9 @@ void Functions::LoadUserData()
 
 void Functions::LoadBookData()
 {
+    // std::vector<User> Uservector;
 
+   
     //Bookvector is also a global variable and this method will add the information in the Bookvector, latter we will use these two vectors as and when required
     //Globaldata::Bookvector;
 }

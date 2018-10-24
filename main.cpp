@@ -4,12 +4,13 @@
 #include <stdio.h>
 #include <iostream>
 #include <curses.h>
+#include <vector>
 
 using namespace std;
 
  
 
-
+//extern vector<User> Uservector;
 
 int main()
 {

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-//Functions functions;
+Functions functions;
 
 int Customer::RequestBookLoan(std::string isbn)
 {
@@ -25,7 +25,17 @@ bool Customer::isAvailable(std::string isbn)
 
 void Customer::listbooks()
 {
-    cout << "Listing the Books";
+    cout << "Listing the Books\n\n";
+    
+    
+    //Functions functions;
+     cout << "printing the Uservector\n\n";
+    for (auto i :  functions.Uservector)
+    {
+
+        cout << i.getname() + "\t\t" + i.getusername() + "\t\t" + i.getpasswd() + "\t\t" + i.getStatus() + "\n\n";
+    }
+
 }
 
 bool Customer::isAlreadyissued(std::string isbn)
