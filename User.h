@@ -1,28 +1,25 @@
 #include <string>
 
-using namespace std;
-
 class User
 {
 
     //This header file defines getters and setters for a User <name, username, password, address>
 
   public:
-    string getname() { return name; }
-    void setname(string n) { name = n; }
+    std::string getname() { return name; }
+    void setname(std::string n) { name = n; }
 
-    string getusername() { return usernme; }
-    void setusername(string u) { usernme = u; }
+    std::string getusername() { return usernme; }
+    void setusername(std::string u) { usernme = u; }
 
-    string getpasswd() { return password; }
-    void setpassword(string pwd) { password = pwd; }
+    std::string getpasswd() { return password; }
+    void setpassword(std::string pwd) { password = pwd; }
 
-    string getaddress() { return address; }
-    void setaddress(string addr) { address = addr; }
+    std::string getStatus(){return status;}
+    void setStatus(std::string sts) { status = sts;}
 
-  private:
-    string name;
-    string usernme;
-    string password;
-    string address;
+    std::string name;
+    std::string usernme;
+    std::string password;
+    std::string status;
 };

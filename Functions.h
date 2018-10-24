@@ -2,12 +2,12 @@
 #include "User.h"
 #include "Book.h"
 
-namespace Globaldata{
+
 
     extern std::vector<User> Uservector;
     extern std::vector<Book> Bookvector;
     extern std::vector<string> IssuedBookvector;
-}
+
 
 class Functions
 {

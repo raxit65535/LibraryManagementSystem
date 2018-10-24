@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <curses.h>
+#include <fstream>
 
 using namespace std;
 
@@ -34,6 +35,42 @@ void Functions::LoadUserData()
 
     //Uservector is defined globally, and we will try to use that same vetor all the time.
     //Globaldata::Uservector;
+    User olduser;
+    string str;
+
+    vector<User> Uservector;
+
+    ifstream fin("User.txt"); // Open and read User.txt
+    if (!fin)
+    { // If can't open
+        cerr << "User.txt can't open" << endl;
+        abort(); // Exit
+    }
+    while (getline(fin, str))
+    {
+        size_t i = str.find(" ");          // Find fisrt spacebar
+        olduser.setname(str.substr(0, i)); // Divide str by spacebar and get username
+        str = str.substr(i + 1);
+
+        i = str.find(" ");                     // Find second spacebar
+        olduser.setusername(str.substr(0, i)); // Divide str by spacebar and get password
+        str = str.substr(i + 1);
+
+        i = str.find(" ");                     // Find second spacebar
+        olduser.setpassword(str.substr(0, i)); // Divide str by spacebar and get password
+
+        olduser.setStatus(str.substr(i+1)); // Divide str by spacebar and get status
+
+        Uservector.push_back(olduser); // Add to lib.UserArray
+    }
+    fin.close(); // Close User.txt
+
+    cout << "printing the Uservector\n\n";
+    for (auto i : Uservector)
+    {
+
+        cout << i.getname() + "\t\t" + i.getusername() + "\t\t" + i.getpasswd() + "\t\t" + i.getStatus() +"\n\n";
+    }
 }
 
 void Functions::LoadBookData()
@@ -101,14 +138,13 @@ void Functions::registrationInterface()
     cin >> userID;
     cout << "\n\t\tEnter password:";
     cin >> password;
-   
+
     registerstatus = registration(name, userID, password);
 
     if (registerstatus == 1)
     {
-        //system("cls");
-        clear();
-        cout<<"Thank you for registering, Please login into the system";
+        system("clear");
+        cout << "\n\t\tThank you for registering, Please login into the system\n";
         loginInterface();
     }
     else
