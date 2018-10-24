@@ -12,12 +12,25 @@ using namespace std;
 Staff staff;
 Customer customer;
 
-int Functions::login(string username, string passwd)
+int Functions::login(string username, string password)
 {
-
     //by default transferring to the customer interface
-    int status = 3;
+    int status = 0;
+vector<User> Uservector;
+cout << "printing the Uservector\n\n";
+    for (auto i : Uservector)
+    {
 
+        cout << i.getname() + "\t\t" + i.getusername() + "\t\t" + i.getpasswd() + "\t\t" + i.getStatus() +"\n\n";
+    }
+
+    for (size_t i = 0; i < Uservector.size(); i++ )
+        if (username == Uservector[i].getusername() && password == Uservector[i].getpasswd())
+        {
+            // If find username and password in User.txt
+            status = 3;
+            return status; // Return status
+        } 
     return status;
 }
 
@@ -25,9 +38,30 @@ int Functions::registration(string name, string username, string password)
 {
 
     //just checking if the username is not available then it should redirect to registrationInterface()
-    int i = 0;
+    int registerstatus = 0;
+    vector<User> Uservector;
+    for (size_t i = 0; i < Uservector.size(); i++)
+    {
+        if (Uservector[i].getusername() == username) 
+        {   // If find that username, return registerstatus as 0
+            cout << "User already exist! " << endl;
+            return registerstatus;
+        }
+    }       
+    ofstream userFile ("User.txt", std::ofstream::out | std::ofstream::app);
+    if (userFile.is_open())
+    {   
+        userFile << name + " " + username + " " + password + " 3";
 
-    return i;
+        userFile.close();
+        registerstatus = 1;
+        LoadUserData();
+    }
+    else 
+    {
+        cout << "Unable to open User.txt file";
+    }
+        return registerstatus;
 }
 
 void Functions::LoadUserData()
@@ -78,6 +112,45 @@ void Functions::LoadBookData()
 
     //Bookvector is also a global variable and this method will add the information in the Bookvector, latter we will use these two vectors as and when required
     //Globaldata::Bookvector;
+
+    Book oldbook;
+    string str;
+    vector<Book> Bookvector;
+    ifstream fin("Books.txt"); // Open and read Book.txt
+    if(!fin) { // If can't open
+        cerr << "Books.txt can't open" << endl;
+        abort(); // Exit
+    }
+    while (getline(fin, str)) {
+        size_t i = str.find(" "); // Find fisrt spacebar
+        oldbook.setName(str.substr(0, i)); // Divide str by spacebar and get bookname
+        str = str.substr(i+1);
+
+        i = str.find(" "); // Find second spacebar
+        oldbook.setIsbn(str.substr(0, i)); // Divide str by spacebar and get ISBN number
+        str = str.substr(i+1);
+
+        i = str.find(" ");
+        oldbook.setAuthor(str.substr(0, i)); // Divide str by spacebar and get author
+        str = str.substr(i+1);
+
+        i = str.find(" ");
+        oldbook.setInformation(str.substr(0, i)); // Divide str by spacebar and get Information
+        str = str.substr(i+1);
+
+        i = str.find(" ");
+        oldbook.setCount(stoi(str.substr(0, i))); // Divide str by spacebar and get count
+        cout<<"Count of book is " <<oldbook.getCount();
+        Bookvector.push_back(oldbook); // Add to Bookvector
+    }
+    fin.close(); // Close Books.txt
+    cout << "printing the Bookvector\n\n";
+    for (auto i : Bookvector)
+    {
+        int j = i.getCount();
+        cout << i.getName() + "\t\t" + i.getIsbn() + "\t\t" + i.getAuthor() + "\t\t" + i.getInformation() + "\t\t"<<j;
+        cout<<"\n";
+    }
 }
 
 void Functions::loginInterface()
@@ -110,7 +183,7 @@ void Functions::loginInterface()
         staff.staffInterface();
     }
 
-    if (status = 3)
+    if (status == 3)
     {
 
         system("clear");
@@ -120,8 +193,9 @@ void Functions::loginInterface()
     {
 
         system("clear");
-        cout << "The identity of user is not defined";
-        loginInterface();
+        cout << "Error... The identity of user is not defined. :(\n";
+        cout << "";
+        startup();
     }
 }
 
@@ -145,7 +219,7 @@ void Functions::registrationInterface()
     {
         system("clear");
         cout << "\n\t\tThank you for registering, Please login into the system\n";
-        loginInterface();
+        startup();
     }
     else
     {
