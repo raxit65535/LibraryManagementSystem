@@ -12,7 +12,7 @@ class Functions
     int registration(string name, string username, string password); //By default the status Flag is set to 3, because only customers can register through our system
     void LoadUserData();                                             //it will load all the data available in user.txt where the status tag is = customer (3) into UserVector
     void LoadBookData();                                             //it will load all the data available in the Book.txt into BookVector (defined below)
-    void issuedBook();                                               //it will load all the data available in IssuedBook.txt and put it in the IssuedBook Vector
+    void IssuedBookData();                                               //it will load all the data available in IssuedBook.txt and put it in the IssuedBook Vector
     void startup();
     
 

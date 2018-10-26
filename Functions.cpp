@@ -1,7 +1,7 @@
 #include "Functions.h"
 #include "Staff.h"
 #include "Customer.h"
-
+#include "Log.h"
 #include <iostream>
 #include <string>
 #include <curses.h>
@@ -14,32 +14,21 @@ Customer customer;
 
 extern vector<User> Uservector;
 extern vector<Book> Bookvector;
+extern vector<Log> IssuedBookvector;
+extern string loggedinUser;
 
 int Functions::login(string username, string password)
 {
     //by default transferring to the customer interface
     int status = 0;
 
-    for (int i = 0; i < Uservector.size(); i++)
-    {
-        string temp_uname = Uservector[i].getusername();
-        string temp_passwd = Uservector[i].getpasswd();
-
-        //cout <<"contents in the text file\t\t\t" +temp_uname + "\t\t\t" + temp_passwd;
-
-        if (temp_uname == username && temp_passwd == password)
-        {
-            // If find username and password in User.txt
-            status = 3;
-            return status; // Return status
-        }
-    }
-
-    cout << "printing the Uservector\n\n";
     for (auto i : Uservector)
     {
-
-        cout << i.getname() + "\t\t" + i.getusername() + "\t\t" + i.getpasswd() + "\t\t" + i.getStatus() + "\n\n";
+        if (i.getusername() == username && i.getpasswd() == password)
+        {
+            loggedinUser = i.getusername();
+            return stoi(i.getStatus()); // Return status
+        }
     }
 
     return status;
@@ -66,7 +55,7 @@ int Functions::registration(string name, string username, string password)
     olduser.setpassword(password);
 
     Uservector.push_back(olduser);
-    
+
     ofstream userFile("User.txt", std::ofstream::out | std::ofstream::app);
     if (userFile.is_open())
     {
@@ -173,6 +162,53 @@ void Functions::LoadBookData()
     // }
 }
 
+void Functions::IssuedBookData()
+{
+    Log oldlog;
+    string str;
+
+    ifstream fin("IssuedBook.txt"); // Open and read Book.txt
+    if (!fin)
+    { // If can't open
+        cerr << ".txt can't open" << endl;
+        abort(); // Exit
+    }
+    while (getline(fin, str))
+    {
+        size_t i = str.find(";");             // Find fisrt spacebar
+        oldlog.setUsername(str.substr(0, i)); // Divide str by spacebar and get bookname
+        str = str.substr(i + 1);
+
+        i = str.find(";");                // Find second spacebar
+        oldlog.setIsbn(str.substr(0, i)); // Divide str by spacebar and get ISBN number
+        str = str.substr(i + 1);
+
+        i = str.find(";");
+        oldlog.setBookname(str.substr(0, i)); // Divide str by spacebar and get author
+        str = str.substr(i + 1);
+
+        i = str.find(";");
+        oldlog.setIssueDate(str.substr(0, i)); // Divide str by spacebar and get Information
+        str = str.substr(i + 1);
+
+        i = str.find(";");
+        oldlog.setReturnDate(str.substr(0, i)); // Divide str by spacebar and get Information
+        str = str.substr(i + 1);
+
+        i = str.find(";");
+        oldlog.setstatus(str.substr(0, i)); // Divide str by spacebar and get count
+        
+        IssuedBookvector.push_back(oldlog); // Add to Bookvector
+    }
+    fin.close();
+
+    // cout<<"printing the issuedbookvector";
+    // for(auto i : IssuedBookvector){
+
+    //     cout<< i.getBookname() << i.getIsbn() << i.getIssueDate() << i.getReturnDate() << i.getUsername()<<"\n";
+    // }
+}
+
 void Functions::loginInterface()
 {
 
@@ -255,8 +291,6 @@ void Functions::registrationInterface()
 
 void Functions::startup()
 {
-   
-
 
     int i;
     cout << "\n\t*********** LIBRARY MANAGEMENT SYSTEM - Startup Interface ***********\n";
@@ -266,10 +300,11 @@ void Functions::startup()
     cin >> i;
     while (cin.fail())
     {
-        cout << "\n\t\tEnter your choice :";
+
         cin.clear();
         cin.ignore();
         //getch();
+        cout << "............";
         cin >> i;
     }
 
@@ -294,7 +329,7 @@ void Functions::startup()
     }
     else
     {
-        cout << "\n\t\tPlease enter correct option :(";
+        cout << "\n\t\tPlease enter correct option :(\n";
         getch();
         system("clear");
         startup();

@@ -1,5 +1,6 @@
 #include "Functions.h"
 #include "Staff.h"
+#include "Log.h"
 #include "Customer.h"
 #include <stdio.h>
 #include <iostream>
@@ -10,7 +11,8 @@ using namespace std;
 
 vector<User> Uservector;
 vector<Book> Bookvector;
-vector<string> IssuedBookvector;
+vector<Log> IssuedBookvector;
+string loggedinUser;
 
 //extern vector<User> Uservector;
 
@@ -22,7 +24,7 @@ int main()
     Functions fun;
     fun.LoadUserData(); //it will creat Uservector to use for login
     fun.LoadBookData(); //it will create Bookvector for future use (listbook(), requestbookloan()).
-
+    fun.IssuedBookData();
     
     fun.startup();
 }
