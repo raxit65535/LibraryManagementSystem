@@ -53,7 +53,7 @@ int Functions::registration(string name, string username, string password)
     olduser.setname(name);
     olduser.setusername(username);
     olduser.setpassword(password);
-
+    olduser.setStatus("3");
     Uservector.push_back(olduser);
 
     ofstream userFile("User.txt", std::ofstream::out | std::ofstream::app);
@@ -111,6 +111,24 @@ void Functions::LoadUserData()
 
     //     cout << i.getname() + "\t\t" + i.getusername() + "\t\t" + i.getpasswd() + "\t\t" + i.getStatus() + "\n\n";
     // }
+}
+
+void Functions::UpdateBookData()
+{
+    ofstream userFile("Books.txt");
+    if (userFile.is_open())
+    {
+        for (auto i : Bookvector)
+        {
+            userFile << i.getName() + " " + i.getIsbn() + " " + i.getInformation() + " " + i.getInformation() + " " << i.getCount() << endl;
+        }
+
+        userFile.close();
+    }
+    else
+    {
+        cout << "Unable to open Books.txt file";
+    }
 }
 
 void Functions::LoadBookData()
@@ -276,6 +294,7 @@ void Functions::registrationInterface()
     {
         system("clear");
         cout << "\n\t\tThank you for registering, Please login into the system\n";
+        LoadUserData();
         startup();
     }
     else

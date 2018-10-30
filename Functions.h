@@ -14,6 +14,6 @@ class Functions
     void LoadBookData();                                             //it will load all the data available in the Book.txt into BookVector (defined below)
     void IssuedBookData();                                               //it will load all the data available in IssuedBook.txt and put it in the IssuedBook Vector
     void startup();
-    
+    void UpdateBookData();
 
 };

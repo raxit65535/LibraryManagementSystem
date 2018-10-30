@@ -180,6 +180,7 @@ void Customer::listbooks()
         {
             //system("clear");
             cout << "\t\tBook is issued to you successfully...Happy Reading :)\n\n";
+            functions.UpdateBookData();
             customerInterface();
         }
         else
