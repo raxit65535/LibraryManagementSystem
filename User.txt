@@ -1,3 +1,3 @@
-test1 test1 test1 3
 raxit raxit raxit 3
-raxit rax rax 2
+rax rax rax 2
+resham resham resham 3

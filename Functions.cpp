@@ -59,7 +59,7 @@ int Functions::registration(string name, string username, string password)
     ofstream userFile("User.txt", std::ofstream::out | std::ofstream::app);
     if (userFile.is_open())
     {
-        userFile << name + " " + username + " " + password + " 3";
+        userFile << name + " " + username + " " + password + " 3"<< "\n";
 
         userFile.close();
         registerstatus = 1;
@@ -129,6 +129,26 @@ void Functions::UpdateBookData()
     {
         cout << "Unable to open Books.txt file";
     }
+}
+
+void Functions::UpdateIssueBookData(){
+
+    ofstream userFile("IssuedBook.txt");
+    if (userFile.is_open())
+    {
+        for (auto i : IssuedBookvector)
+        {
+            userFile << i.getUsername() + ";" + i.getIsbn() + ";" + i.getBookname() + ";" + i.getIssueDate() + ";" << i.getReturnDate() +";"<< i.getstatus() << endl;
+        }
+
+        userFile.close();
+    }
+    else
+    {
+        cout << "Unable to open IssueBook.txt file";
+    }
+
+
 }
 
 void Functions::LoadBookData()

@@ -87,6 +87,17 @@ int Staff::returnIssuedBook(string isbn, string username)
     //write logic to retun the issued book here.
     int ret = 0;
 
+    for (int j = 0; j < Bookvector.size(); j++)
+    {
+        if(Bookvector[j].getIsbn() == isbn){
+
+                Bookvector[j].setCount(Bookvector[j].getCount() + 1);
+                Functions bookupdate;
+                bookupdate.UpdateBookData();
+
+        }
+    }
+
     for (int i = 0; i < IssuedBookvector.size(); i++)
     {
 
@@ -94,6 +105,8 @@ int Staff::returnIssuedBook(string isbn, string username)
         {
 
             IssuedBookvector[i].setstatus("returned");
+            Functions logupdate;
+            logupdate.UpdateIssueBookData();
             ret = 1;
             return ret;
         }

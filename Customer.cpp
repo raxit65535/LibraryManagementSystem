@@ -53,6 +53,9 @@ int Customer::RequestBookLoan(std::string isbn)
                 newlog.setReturnDate(rdate);
                 IssuedBookvector.push_back(newlog);
 
+                Functions f;
+                f.UpdateIssueBookData();
+
                 Bookvector[i].setCount(Bookvector[i].getCount() - 1);
                 bookloan = 1;
                 return bookloan;
