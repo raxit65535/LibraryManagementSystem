@@ -66,7 +66,7 @@ int Customer::RequestBookLoan(std::string isbn)
     return bookloan;
 }
 
-void Customer::showdetails()
+void CustomerUI::showdetails()
 {
     int i;
     cout << "This is the details:" << endl;
@@ -143,7 +143,7 @@ bool Customer::isAvailable(std::string isbn)
     return availability;
 }
 
-void Customer::listbooks()
+void CustomerUI::listbooks()
 {
     int i;
     //Functions functions;
@@ -177,7 +177,8 @@ void Customer::listbooks()
         string isbn, username;
         cout << "\n Please Enter the ISBN number of the Book :";
         cin >> isbn;
-        int status = RequestBookLoan(isbn);
+        Customer c;
+        int status = c.RequestBookLoan(isbn);
 
         if (status == 1)
         {
@@ -235,7 +236,7 @@ bool Customer::isAlreadyissued(std::string isbn)
     return issuestatus;
 }
 
-void Customer::customerInterface()
+void CustomerUI::customerInterface()
 {
 
     int i;

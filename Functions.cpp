@@ -72,7 +72,7 @@ int Functions::registration(string name, string username, string password)
     return registerstatus;
 }
 
-void Functions::LoadUserData()
+void Persistance::LoadUserData()
 {
 
     //Uservector is defined globally, and we will try to use that same vetor all the time.
@@ -113,7 +113,7 @@ void Functions::LoadUserData()
     // }
 }
 
-void Functions::UpdateBookData()
+void Persistance::UpdateBookData()
 {
     ofstream userFile("Books.txt");
     if (userFile.is_open())
@@ -131,7 +131,7 @@ void Functions::UpdateBookData()
     }
 }
 
-void Functions::UpdateIssueBookData(){
+void Persistance::UpdateIssueBookData(){
 
     ofstream userFile("IssuedBook.txt");
     if (userFile.is_open())
@@ -151,7 +151,7 @@ void Functions::UpdateIssueBookData(){
 
 }
 
-void Functions::LoadBookData()
+void Persistance::LoadBookData()
 {
     // std::vector<User> Uservector;
 
@@ -200,7 +200,7 @@ void Functions::LoadBookData()
     // }
 }
 
-void Functions::IssuedBookData()
+void Persistance::LoadIssueBookData()
 {
     Log oldlog;
     string str;
@@ -247,7 +247,7 @@ void Functions::IssuedBookData()
     // }
 }
 
-void Functions::loginInterface()
+void systemUI::loginInterface()
 {
 
     //this is login Interface for all the entity of system
@@ -262,7 +262,8 @@ void Functions::loginInterface()
     cout << "\n\t\tPassword:";
     cin >> passwd;
 
-    status = login(username, passwd);
+    Functions f;
+    status = f.login(username, passwd);
 
     //cout << "status is:" + status;
     //status = 9;
@@ -294,7 +295,7 @@ void Functions::loginInterface()
     }
 }
 
-void Functions::registrationInterface()
+void systemUI::registrationInterface()
 {
 
     int registerstatus;
@@ -308,13 +309,14 @@ void Functions::registrationInterface()
     cout << "\n\t\tEnter password:";
     cin >> password;
 
-    registerstatus = registration(name, userID, password);
+    Functions f;
+    registerstatus = f.registration(name, userID, password);
 
     if (registerstatus == 1)
     {
         system("clear");
         cout << "\n\t\tThank you for registering, Please login into the system\n";
-        LoadUserData();
+        f.LoadUserData();
         startup();
     }
     else
@@ -328,7 +330,7 @@ void Functions::registrationInterface()
     }
 }
 
-void Functions::startup()
+void systemUI::startup()
 {
 
     int i;

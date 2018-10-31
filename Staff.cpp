@@ -1,5 +1,5 @@
-#include "Staff.h"
 #include "Customer.h"
+#include "Staff.h"
 #include "Functions.h"
 #include "Log.h"
 #include <iostream>
@@ -14,7 +14,8 @@ extern vector<User> Uservector;
 extern vector<Log> IssuedBookvector;
 extern string loggedinUser;
 
-void Staff::returnBookInterface()
+
+void UILayer::returnBookInterface()
 {
     string username, isbn;
 
@@ -27,58 +28,22 @@ void Staff::returnBookInterface()
     cin >> username;
 
     //system("clear");
-    retbook = returnIssuedBook(isbn, username);
+    Staff st;
+    retbook = st.returnIssuedBook(isbn, username);
 
     if (retbook == 1)
     {
         cout << "\t\tBook Returned Successfully: :)\n\n";
+        staffInterface();
     }
     else
     {
 
         cout << "\t\tThe book you are trying to return is not found in log :(\n\n";
-    }
-
-    cout << "\n\n\t\t 1.Return MoreBook \n\n\t\t 2.HomePage \n\n\t\t 3.Log out\n\n\t\t 4.Close Application";
-    cin >> i;
-
-    while (cin.fail())
-    {
-        cout << "\n\t\tEnter your choice :";
-        cin.clear();
-        cin.ignore();
-        //getch();
-        cin >> i;
-    }
-
-    if (i == 1)
-    {
-        system("clear");
         returnBookInterface();
     }
-    else if (i == 2)
-    {
-        system("clear");
-        staffInterface();
-    }
 
-    else if (i == 3)
-    {
-        system("clear");
-        Functions functions;
-        functions.startup();
-    }
-    else if (i == 4)
-    {
-        exit(0);
-    }
-    else
-    {
-        cout << "\n\t\tYou entered wrong choice, redirecting to the Book Return Interface :(";
-        getch();
-        system("clear");
-        returnBookInterface();
-    }
+    
 }
 
 int Staff::returnIssuedBook(string isbn, string username)
@@ -115,7 +80,7 @@ int Staff::returnIssuedBook(string isbn, string username)
     return ret;
 }
 
-void Staff::staffInterface()
+void UILayer::staffInterface()
 {
     int i;
     cout << "\n\t*********** LIBRARY MANAGEMENT SYSTEM - Staff Interface ***********\n";
@@ -167,7 +132,7 @@ void Staff::staffInterface()
     }
 }
 
-void Staff::viewBooksAvailability()
+void UILayer::viewBooksAvailability()
 {
 
     int i;
@@ -223,7 +188,7 @@ void Staff::viewBooksAvailability()
     }
 }
 
-void Staff::viewlog()
+void UILayer::viewlog()
 {
 
     int i;

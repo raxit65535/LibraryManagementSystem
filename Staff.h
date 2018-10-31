@@ -1,28 +1,17 @@
 #include <string>
 
-class staffUI
+class UILayer
 {
-
-  public:
-    void staffInterface();
-    void viewlog();
-    void viewBooksAvailability();
-    void returnBookInterface();
+public:
+  void staffInterface();
+  void viewlog();
+  void viewBooksAvailability();
+  void returnBookInterface();
 };
 
-class StaffControllerLogic
-{
-        public:
-        int returnIssuedBook();
-};
-
-class Staff : public staffUI, public StaffControllerLogic
+class Staff : public UILayer
 {
 
-  public:
-    void viewBooksAvailability();
-    void returnBookInterface();
-    void viewlog();
-    int returnIssuedBook(std::string isbn, std::string username);
-    void staffInterface();
+public:
+  int returnIssuedBook(std::string isbn, std::string username);
 };

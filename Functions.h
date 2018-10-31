@@ -18,7 +18,8 @@ public:
   int registration(string name, string username, string password);
 };
 
-class Persistance{
+class Persistance
+{
 
 public:
   void LoadBookData();
@@ -27,22 +28,13 @@ public:
   void UpdateBookData();
   void UpdateIssueBookData();
   void UpdateUserData();
-
 };
 
 class Functions : public systemUI, public systemEntry, public Persistance
 {
 
 public:
-  void loginInterface();
   int login(string username, string passwd);
-  void registrationInterface();
   int registration(string name, string username, string password);
-  void LoadUserData();
-  void LoadBookData();
-  void IssuedBookData();
-  void startup();
-  void UpdateBookData();
-  void UpdateIssueBookData();
-  void UpdateUserData();
 };
+
