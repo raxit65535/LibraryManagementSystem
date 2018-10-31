@@ -326,7 +326,7 @@ void systemUI::registrationInterface()
         getch();
         //system("CLS");
         //clear();
-        registrationInterface();
+        startup();
     }
 }
 
