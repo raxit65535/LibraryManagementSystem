@@ -47,3 +47,27 @@ vector<User> UserDataDBA :: LoadUserDataDBA()
     // }
     return Uservector;
 }
+
+
+void UserDataDBA::AddUser(string name,string username, string password)
+{
+    User olduser;
+    olduser.setname(name);
+    olduser.setusername(username);
+    olduser.setpassword(password);
+    olduser.setStatus("3");
+    Uservector.push_back(olduser);
+
+    ofstream userFile("User.txt", std::ofstream::out | std::ofstream::app);
+    if (userFile.is_open())
+    {
+        userFile << name + " " + username + " " + password + " 3"
+                 << "\n";
+
+        userFile.close();
+    }
+    else
+    {
+        cout << "Unable to open User.txt file";
+    }
+}

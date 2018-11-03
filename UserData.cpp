@@ -10,3 +10,8 @@ void UserData :: LoadData()
 {
     Uservector = uDBA.LoadUserDataDBA();
 }
+
+void UserData :: AddUser(string name,string username, string password)
+{
+    uDBA.AddUser(name, username, password);
+}

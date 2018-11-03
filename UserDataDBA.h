@@ -10,6 +10,7 @@ class UserDataDBA
 {
     public:
         vector<User> LoadUserDataDBA();
+        void AddUser(string name,string username, string password);
 };
 
 #endif

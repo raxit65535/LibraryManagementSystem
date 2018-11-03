@@ -7,6 +7,7 @@ using namespace std;
 class UserData{
     public:
         void LoadData();
+        void AddUser(string name,string username, string password);
 };
 
 #endif

@@ -39,41 +39,39 @@ int Functions::login(string username, string password)
     return status;
 }
 
-int Functions::registration(string name, string username, string password)
+bool Functions::isUserExist(string username)
 {
-
-    //just checking if the username is not available then it should redirect to registrationInterface()
-    int registerstatus = 0;
-    User olduser;
-
     for (size_t i = 0; i < Uservector.size(); i++)
     {
         if (Uservector[i].getusername() == username)
         { // If find that username, return registerstatus as 0
+            cout << "\n\t*****************************************************************************************\n";
             cout << "User already exist! " << endl;
-            return registerstatus;
+            cout << "\n\t*****************************************************************************************\n";
+            return true;
         }
     }
 
-    olduser.setname(name);
-    olduser.setusername(username);
-    olduser.setpassword(password);
-    olduser.setStatus("3");
-    Uservector.push_back(olduser);
+    return false;
+}
 
-    ofstream userFile("User.txt", std::ofstream::out | std::ofstream::app);
-    if (userFile.is_open())
+
+
+int Functions::registration(string name, string username, string password)
+{
+
+  int registerstatus = 0;
+    if (isUserExist(username))
     {
-        userFile << name + " " + username + " " + password + " 3"<< "\n";
 
-        userFile.close();
-        registerstatus = 1;
-        //LoadUserData();
+        return registerstatus;
     }
     else
     {
-        cout << "Unable to open User.txt file";
+        registerstatus = 1;
+        userDataF.AddUser(name,username,password);
     }
+
     return registerstatus;
 }
 
