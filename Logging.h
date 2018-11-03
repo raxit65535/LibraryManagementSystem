@@ -1,23 +1,19 @@
-//database specific. can be changed
-//if t here is any new database implementations
-
-#ifndef BookDataDBA_h
-#define BookDataDBA_h
+#ifndef Logging_h
+#define Logging_h
 
 #include <string>
-using namespace std;
-
-#include "Book.h"
+#include "User.h"
 #include "Log.h"
 #include <vector>
+using namespace std;
 
+class Logging
+{
 
-class BookDataDBA{
     public:
-        virtual vector<Book> LoadBookDataDBA();
         virtual vector<Log> LoadIssueBookDataDBA();
-        virtual void UpdateBookDataDBA();
         virtual void UpdateIssueBookDataDBA();
+
 
 };
 

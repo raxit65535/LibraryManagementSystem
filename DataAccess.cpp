@@ -1,6 +1,6 @@
 #include "DataAccess.h"
-#include "BookDataDBA.h"
-#include "UserDataDBA.h"
+#include "BookDataPersistance.h"
+#include "Logging.h"
 #include "User.h"
 #include <vector>
 #include "Book.h"
@@ -9,8 +9,7 @@
 #include <string>
 #include <fstream>
 
-BookDataDBA bDBA;
-UserDataDBA uDBA;
+
 
 extern vector<Book> Bookvector;
 extern vector<Log> IssuedBookvector;
@@ -20,7 +19,7 @@ vector<Book> Bookvector;
 vector<User> Uservector;
 vector<Log> IssuedBookvector;
 
-void BookDataDBA::UpdateBookDataDBA()
+void BookDataPersistance::UpdateBookDataDBA()
 {
     ofstream userFile("Books.txt");
     if (userFile.is_open())
@@ -38,7 +37,7 @@ void BookDataDBA::UpdateBookDataDBA()
     }
 }
 
-void BookDataDBA::UpdateIssueBookDataDBA(){
+void Logging::UpdateIssueBookDataDBA(){
 
     ofstream userFile("IssuedBook.txt");
     if (userFile.is_open())
@@ -58,7 +57,7 @@ void BookDataDBA::UpdateIssueBookDataDBA(){
 
 }
 
-vector<Book> BookDataDBA :: LoadBookDataDBA()
+vector<Book> BookDataPersistance :: LoadBookDataDBA()
 {
 Book oldbook;
     string str;
@@ -104,7 +103,7 @@ Book oldbook;
     return Bookvector;
 }
 
-vector<Log> BookDataDBA :: LoadIssueBookDataDBA()
+vector<Log> Logging :: LoadIssueBookDataDBA()
 {
     Log oldlog;
     string str;
@@ -152,7 +151,7 @@ vector<Log> BookDataDBA :: LoadIssueBookDataDBA()
     return IssuedBookvector;
 }
 
-vector<User> UserDataDBA :: LoadUserDataDBA()
+vector<User> DataAccess::LoadUserDataDBA()
 {
     User olduser;
     string str;
@@ -192,7 +191,7 @@ vector<User> UserDataDBA :: LoadUserDataDBA()
 }
 
 
-void UserDataDBA::AddUser(string name,string username, string password)
+void DataAccess::AddUser(string name,string username, string password)
 {
     User olduser;
     olduser.setname(name);
