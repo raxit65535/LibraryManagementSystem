@@ -1,9 +1,8 @@
-
 #include "Customer.h"
 #include "Functions.h"
 #include "Log.h"
+#include "BookData.h"
 #include <iostream>
-#include <curses.h>
 #include <iomanip>
 
 using namespace std;
@@ -14,6 +13,7 @@ extern vector<Book> Bookvector;
 extern vector<User> Uservector;
 extern vector<Log> IssuedBookvector;
 extern string loggedinUser;
+BookData bookDataC;
 
 int Customer::RequestBookLoan(std::string isbn)
 {
@@ -54,7 +54,7 @@ int Customer::RequestBookLoan(std::string isbn)
                 IssuedBookvector.push_back(newlog);
 
                 Functions f;
-                f.UpdateIssueBookData();
+                bookDataC.UpdateIssueBookData();
 
                 Bookvector[i].setCount(Bookvector[i].getCount() - 1);
                 bookloan = 1;
@@ -97,13 +97,11 @@ void CustomerUI::showdetails()
     }
     if (i == 1)
     {
-        //getch();
         customerInterface();
     }
 
     else if (i == 2)
     {
-        system("clear");
         Functions functions;
         functions.startup();
     }
@@ -113,10 +111,10 @@ void CustomerUI::showdetails()
     }
     else
     {
+        cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tPlease enter correct option :(\n";
-        getch();
-        system("clear");
         showdetails();
+        cout << "\n\t*****************************************************************************************\n";
     }
 
 
@@ -182,28 +180,27 @@ void CustomerUI::listbooks()
 
         if (status == 1)
         {
-            //system("clear");
+            cout << "\n\t*****************************************************************************************\n";
             cout << "\t\tBook is issued to you successfully...Happy Reading :)\n\n";
-            functions.UpdateBookData();
+            cout << "\n\t*****************************************************************************************\n";
+            bookDataC.UpdateBookData();
             customerInterface();
         }
         else
         {
-            system("clear");
+            cout << "\n\t*****************************************************************************************\n";
             cout << "\t\tThe book you are requesting is not available or already checked out to you: :(\n\n";
+            cout << "\n\t*****************************************************************************************\n";
             listbooks();
         }
     }
     else if (i == 2)
     {
-        system("clear");
-        //getch();
         customerInterface();
     }
 
     else if (i == 3)
     {
-        system("clear");
         Functions functions;
         functions.startup();
     }
@@ -213,9 +210,9 @@ void CustomerUI::listbooks()
     }
     else
     {
+        cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tPlease enter correct option :(\n";
-        getch();
-        system("clear");
+        cout << "\n\t*****************************************************************************************\n";
         listbooks();
     }
 }
@@ -256,20 +253,15 @@ void CustomerUI::customerInterface()
 
     if (i == 1)
     {
-        system("clear");
-        //getch();
         listbooks();
     }
     else if (i == 2)
     {
-        system("clear");
-        //getch();
         showdetails();
     }
 
     else if (i == 3)
     {
-        system("clear");
         Functions functions;
         functions.startup();
     }
@@ -279,9 +271,9 @@ void CustomerUI::customerInterface()
     }
     else
     {
+        cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tPlease enter correct option :(\n";
-        getch();
-        system("clear");
+        cout << "\n\t*****************************************************************************************\n";
         customerInterface();
     }
 }

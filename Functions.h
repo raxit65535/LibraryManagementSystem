@@ -18,19 +18,20 @@ public:
   int registration(string name, string username, string password);
 };
 
-class Persistance
-{
+// class Persistance
+// {
 
-public:
-  void LoadBookData();
-  void LoadUserData();
-  void LoadIssueBookData();
-  void UpdateBookData();
-  void UpdateIssueBookData();
-  void UpdateUserData();
-};
+// public:
+//   void LoadBookData();
+//   void LoadUserData();
+//   void LoadIssueBookData();
+//   void UpdateBookData();
+//   void UpdateIssueBookData();
+//   void UpdateUserData();
+// };
 
-class Functions : public systemUI, public systemEntry, public Persistance
+class Functions : public systemUI, public systemEntry
+// , public Persistance
 {
 
 public:

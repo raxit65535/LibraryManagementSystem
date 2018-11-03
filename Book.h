@@ -1,3 +1,7 @@
+
+#ifndef book_h
+#define book_h
+
 #include <string>
 
 using namespace std;
@@ -30,3 +34,7 @@ private:
 
 
 };
+
+
+#endif
+

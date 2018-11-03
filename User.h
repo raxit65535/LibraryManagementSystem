@@ -1,3 +1,6 @@
+#ifndef user_h
+#define user_h
+
 #include <string>
 
 class User
@@ -23,3 +26,9 @@ public:
   std::string password;
   std::string status;
 };
+
+#include <string>
+using namespace std;
+
+#endif
+

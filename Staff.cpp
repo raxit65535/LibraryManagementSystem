@@ -2,9 +2,9 @@
 #include "Staff.h"
 #include "Functions.h"
 #include "Log.h"
+#include "BookData.h"
 #include <iostream>
 #include <string>
-#include <curses.h>
 #include <iomanip>
 
 using namespace std;
@@ -13,7 +13,7 @@ extern vector<Book> Bookvector;
 extern vector<User> Uservector;
 extern vector<Log> IssuedBookvector;
 extern string loggedinUser;
-
+BookData bookData;
 
 void UILayer::returnBookInterface()
 {
@@ -27,19 +27,21 @@ void UILayer::returnBookInterface()
     cout << "\n\t\tEnter Username of Book Borrower : ";
     cin >> username;
 
-    //system("clear");
     Staff st;
     retbook = st.returnIssuedBook(isbn, username);
 
     if (retbook == 1)
     {
+        cout << "\n\t*****************************************************************************************\n";
         cout << "\t\tBook Returned Successfully: :)\n\n";
+        cout << "\n\t*****************************************************************************************\n";
         staffInterface();
     }
     else
     {
-
+        cout << "\n\t*****************************************************************************************\n";
         cout << "\t\tThe book you are trying to return is not found in log :(\n\n";
+        cout << "\n\t*****************************************************************************************\n";
         returnBookInterface();
     }
 
@@ -58,7 +60,7 @@ int Staff::returnIssuedBook(string isbn, string username)
 
                 Bookvector[j].setCount(Bookvector[j].getCount() + 1);
                 Functions bookupdate;
-                bookupdate.UpdateBookData();
+                bookData.UpdateBookData();
 
         }
     }
@@ -71,7 +73,7 @@ int Staff::returnIssuedBook(string isbn, string username)
 
             IssuedBookvector[i].setstatus("returned");
             Functions logupdate;
-            logupdate.UpdateIssueBookData();
+            bookData.UpdateIssueBookData();
             ret = 1;
             return ret;
         }
@@ -98,24 +100,18 @@ void UILayer::staffInterface()
 
     if (i == 1)
     {
-        system("clear");
-        //getch();
         viewBooksAvailability();
     }
     else if (i == 2)
     {
-        system("clear");
-        //getch();
         returnBookInterface();
     }
     else if (i == 3)
     {
-        system("clear");
         viewlog();
     }
     else if (i == 4)
     {
-        system("clear");
         Functions functions;
         functions.loginInterface();
     }
@@ -126,8 +122,6 @@ void UILayer::staffInterface()
     else
     {
         cout << "\n\t\tPlease enter correct option :(";
-        getch();
-        system("clear");
         staffInterface();
     }
 }
@@ -164,14 +158,11 @@ void UILayer::viewBooksAvailability()
 
     if (i == 1)
     {
-        system("clear");
-        //getch();
         staffInterface();
     }
 
     else if (i == 2)
     {
-        system("clear");
         Functions functions;
         functions.startup();
     }
@@ -181,9 +172,9 @@ void UILayer::viewBooksAvailability()
     }
     else
     {
+        cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tPlease enter correct option :(\n";
-        getch();
-        system("clear");
+        cout << "\n\t*****************************************************************************************\n";
         viewBooksAvailability();
     }
 }
@@ -218,14 +209,11 @@ void UILayer::viewlog()
     }
     if (i == 1)
     {
-        system("clear");
-        //getch();
         staffInterface();
     }
 
     else if (i == 2)
     {
-        system("clear");
         Functions functions;
         functions.startup();
     }
@@ -235,9 +223,9 @@ void UILayer::viewlog()
     }
     else
     {
+        cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tPlease enter correct option :(\n";
-        getch();
-        system("clear");
+        cout << "\n\t*****************************************************************************************\n";
         viewlog();
     }
 }

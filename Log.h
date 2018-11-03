@@ -1,3 +1,6 @@
+#ifndef log_h
+#define log_h
+
 #include <string>
 
 using namespace std;
@@ -31,3 +34,10 @@ class Log
     string returndate;
     string status;
 };
+
+#include <string>
+using namespace std;
+
+#endif
+
+

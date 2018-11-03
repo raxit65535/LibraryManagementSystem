@@ -2,18 +2,23 @@
 #include "Staff.h"
 #include "Customer.h"
 #include "Log.h"
+#include "BookData.h"
+#include "UserData.h"
 #include <iostream>
 #include <string>
-#include <curses.h>
 #include <fstream>
 
 using namespace std;
 
 Staff staff;
 Customer customer;
+BookData bookDataF;
+UserData userDataF;
+
 
 extern vector<User> Uservector;
 extern vector<Book> Bookvector;
+// vector<Book> Bookvector;
 extern vector<Log> IssuedBookvector;
 extern string loggedinUser;
 
@@ -72,181 +77,6 @@ int Functions::registration(string name, string username, string password)
     return registerstatus;
 }
 
-void Persistance::LoadUserData()
-{
-
-    //Uservector is defined globally, and we will try to use that same vetor all the time.
-    //Globaldata::Uservector;
-    User olduser;
-    string str;
-
-    ifstream fin("User.txt"); // Open and read User.txt
-    if (!fin)
-    { // If can't open
-        cerr << "User.txt can't open" << endl;
-        abort(); // Exit
-    }
-    while (getline(fin, str))
-    {
-        size_t i = str.find(" ");          // Find fisrt spacebar
-        olduser.setname(str.substr(0, i)); // Divide str by spacebar and get username
-        str = str.substr(i + 1);
-
-        i = str.find(" ");                     // Find second spacebar
-        olduser.setusername(str.substr(0, i)); // Divide str by spacebar and get password
-        str = str.substr(i + 1);
-
-        i = str.find(" ");                     // Find second spacebar
-        olduser.setpassword(str.substr(0, i)); // Divide str by spacebar and get password
-
-        olduser.setStatus(str.substr(i + 1)); // Divide str by spacebar and get status
-
-        Uservector.push_back(olduser); // Add to lib.UserArray
-    }
-    fin.close(); // Close User.txt
-
-    // cout << "printing the Uservector\n\n";
-    // for (auto i : Uservector)
-    // {
-
-    //     cout << i.getname() + "\t\t" + i.getusername() + "\t\t" + i.getpasswd() + "\t\t" + i.getStatus() + "\n\n";
-    // }
-}
-
-void Persistance::UpdateBookData()
-{
-    ofstream userFile("Books.txt");
-    if (userFile.is_open())
-    {
-        for (auto i : Bookvector)
-        {
-            userFile << i.getName() + " " + i.getIsbn() + " " + i.getInformation() + " " + i.getInformation() + " " << i.getCount() << endl;
-        }
-
-        userFile.close();
-    }
-    else
-    {
-        cout << "Unable to open Books.txt file";
-    }
-}
-
-void Persistance::UpdateIssueBookData(){
-
-    ofstream userFile("IssuedBook.txt");
-    if (userFile.is_open())
-    {
-        for (auto i : IssuedBookvector)
-        {
-            userFile << i.getUsername() + ";" + i.getIsbn() + ";" + i.getBookname() + ";" + i.getIssueDate() + ";" << i.getReturnDate() +";"<< i.getstatus() << endl;
-        }
-
-        userFile.close();
-    }
-    else
-    {
-        cout << "Unable to open IssueBook.txt file";
-    }
-
-
-}
-
-void Persistance::LoadBookData()
-{
-    // std::vector<User> Uservector;
-
-    //Bookvector is also a global variable and this method will add the information in the Bookvector, latter we will use these two vectors as and when required
-    //Globaldata::Bookvector;
-
-    Book oldbook;
-    string str;
-
-    ifstream fin("Books.txt"); // Open and read Book.txt
-    if (!fin)
-    { // If can't open
-        cerr << "Books.txt can't open" << endl;
-        abort(); // Exit
-    }
-    while (getline(fin, str))
-    {
-        size_t i = str.find(" ");          // Find fisrt spacebar
-        oldbook.setName(str.substr(0, i)); // Divide str by spacebar and get bookname
-        str = str.substr(i + 1);
-
-        i = str.find(" ");                 // Find second spacebar
-        oldbook.setIsbn(str.substr(0, i)); // Divide str by spacebar and get ISBN number
-        str = str.substr(i + 1);
-
-        i = str.find(" ");
-        oldbook.setAuthor(str.substr(0, i)); // Divide str by spacebar and get author
-        str = str.substr(i + 1);
-
-        i = str.find(" ");
-        oldbook.setInformation(str.substr(0, i)); // Divide str by spacebar and get Information
-        str = str.substr(i + 1);
-
-        i = str.find(" ");
-        oldbook.setCount(stoi(str.substr(0, i))); // Divide str by spacebar and get count
-        //cout << "Count of book is " << oldbook.getCount();
-        Bookvector.push_back(oldbook); // Add to Bookvector
-    }
-    fin.close(); // Close Books.txt
-    //cout << "printing the Bookvector\n\n";
-    // for (auto i : Bookvector)
-    // {
-    //     int j = i.getCount();
-    //     cout << i.getName() + "\t\t" + i.getIsbn() + "\t\t" + i.getAuthor() + "\t\t" + i.getInformation() + "\t\t" << j;
-    //     cout << "\n";
-    // }
-}
-
-void Persistance::LoadIssueBookData()
-{
-    Log oldlog;
-    string str;
-
-    ifstream fin("IssuedBook.txt"); // Open and read Book.txt
-    if (!fin)
-    { // If can't open
-        cerr << ".txt can't open" << endl;
-        abort(); // Exit
-    }
-    while (getline(fin, str))
-    {
-        size_t i = str.find(";");             // Find fisrt spacebar
-        oldlog.setUsername(str.substr(0, i)); // Divide str by spacebar and get bookname
-        str = str.substr(i + 1);
-
-        i = str.find(";");                // Find second spacebar
-        oldlog.setIsbn(str.substr(0, i)); // Divide str by spacebar and get ISBN number
-        str = str.substr(i + 1);
-
-        i = str.find(";");
-        oldlog.setBookname(str.substr(0, i)); // Divide str by spacebar and get author
-        str = str.substr(i + 1);
-
-        i = str.find(";");
-        oldlog.setIssueDate(str.substr(0, i)); // Divide str by spacebar and get Information
-        str = str.substr(i + 1);
-
-        i = str.find(";");
-        oldlog.setReturnDate(str.substr(0, i)); // Divide str by spacebar and get Information
-        str = str.substr(i + 1);
-
-        i = str.find(";");
-        oldlog.setstatus(str.substr(0, i)); // Divide str by spacebar and get count
-        
-        IssuedBookvector.push_back(oldlog); // Add to Bookvector
-    }
-    fin.close();
-
-    // cout<<"printing the issuedbookvector";
-    // for(auto i : IssuedBookvector){
-
-    //     cout<< i.getBookname() << i.getIsbn() << i.getIssueDate() << i.getReturnDate() << i.getUsername()<<"\n";
-    // }
-}
-
 void systemUI::loginInterface()
 {
 
@@ -274,23 +104,19 @@ void systemUI::loginInterface()
     }
     if (status == 2)
     {
-
-        system("clear");
         staff.staffInterface();
     }
 
     if (status == 3)
     {
-
-        system("clear");
         customer.customerInterface();
     }
     else
     {
-
-        system("clear");
-        cout << "Error... The identity of user is not defined. :(\n";
+        cout << "\n\t*****************************************************************************************\n";
+        cout << "\t\tError... The identity of user is not defined. :(\n";
         cout << "";
+        cout << "\n\t*****************************************************************************************\n";
         startup();
     }
 }
@@ -314,18 +140,17 @@ void systemUI::registrationInterface()
 
     if (registerstatus == 1)
     {
-        system("clear");
+        cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tThank you for registering, Please login into the system\n";
-        f.LoadUserData();
+        cout << "\n\t*****************************************************************************************\n";
+        userDataF.LoadData();        
         startup();
     }
     else
     {
-        system("clear");
+        cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tRequested Username is not available in the system, please try again... :(\n";
-        getch();
-        //system("CLS");
-        //clear();
+        cout << "\n\t*****************************************************************************************\n";
         startup();
     }
 }
@@ -344,23 +169,16 @@ void systemUI::startup()
 
         cin.clear();
         cin.ignore();
-        //getch();
         cout << "............";
         cin >> i;
     }
 
     if (i == 1)
     {
-        //system("cls");
-        //clear();
-        system("clear");
-        //getch();
         loginInterface();
     }
     else if (i == 2)
     {
-        system("clear");
-        //getch();
         registrationInterface();
     }
 
@@ -370,9 +188,9 @@ void systemUI::startup()
     }
     else
     {
+        cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tPlease enter correct option :(\n";
-        getch();
-        system("clear");
+        cout << "\n\t*****************************************************************************************\n";
         startup();
     }
 }
