@@ -60,7 +60,7 @@ int Staff::returnIssuedBook(string isbn, string username)
 
                 Bookvector[j].setCount(Bookvector[j].getCount() + 1);
                 Functions bookupdate;
-                dataAccessS.UpdateBookData();
+                dataAccessS.UpdateBookDataDBA();
 
         }
     }
@@ -73,7 +73,7 @@ int Staff::returnIssuedBook(string isbn, string username)
 
             IssuedBookvector[i].setstatus("returned");
             Functions logupdate;
-            dataAccessS.UpdateIssueBookData();
+            dataAccessS.UpdateIssueBookDataDBA();
             ret = 1;
             return ret;
         }

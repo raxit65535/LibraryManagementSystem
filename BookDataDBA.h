@@ -14,11 +14,14 @@ using namespace std;
 
 class BookDataDBA{
     public:
-        vector<Book> LoadBookDataDBA();
-        vector<Log> LoadIssueBookDataDBA();
-        void UpdateBookDataDBA();
-        void UpdateIssueBookDataDBA();
+        virtual vector<Book> LoadBookDataDBA();
+        virtual vector<Log> LoadIssueBookDataDBA();
+        virtual void UpdateBookDataDBA();
+        virtual void UpdateIssueBookDataDBA();
 
 };
 
 #endif
+
+//this is abstract class that defines methods. this class is inherited by DataAccess class
+// in DataAccess class, these methods are implemented

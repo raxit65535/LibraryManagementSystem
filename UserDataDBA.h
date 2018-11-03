@@ -9,8 +9,11 @@ using namespace std;
 class UserDataDBA
 {
     public:
-        vector<User> LoadUserDataDBA();
-        void AddUser(string name,string username, string password);
+        virtual vector<User> LoadUserDataDBA();
+        virtual void AddUser(string name,string username, string password);
 };
 
 #endif
+
+//this is abstract class that defines methods. this class is inherited by DataAccess class
+// in DataAccess class, these methods are implemented

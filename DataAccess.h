@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "BookDataDBA.h"
+#include "UserDataDBA.h"
 #include "Book.h"
 #include "Log.h"
 #include <vector>
@@ -10,15 +11,9 @@
 using namespace std;
 #include <string>
 
-class DataAccess {
+class DataAccess : public UserDataDBA , public BookDataDBA {
     public:
-        void LoadBookData();
-        void LoadIssueBookData();
-        void UpdateBookData();
-        void UpdateIssueBookData();  
-
-        void LoadUserData();
-        void AddUser(string name,string username, string password);      
+           
 };
 #endif
 
