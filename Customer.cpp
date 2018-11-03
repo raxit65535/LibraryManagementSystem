@@ -1,7 +1,7 @@
 #include "Customer.h"
 #include "Functions.h"
 #include "Log.h"
-#include "BookData.h"
+#include "DataAccess.h"
 #include <iostream>
 #include <iomanip>
 
@@ -13,7 +13,7 @@ extern vector<Book> Bookvector;
 extern vector<User> Uservector;
 extern vector<Log> IssuedBookvector;
 extern string loggedinUser;
-BookData bookDataC;
+DataAccess dataAccessC;
 
 int Customer::RequestBookLoan(std::string isbn)
 {
@@ -54,7 +54,7 @@ int Customer::RequestBookLoan(std::string isbn)
                 IssuedBookvector.push_back(newlog);
 
                 Functions f;
-                bookDataC.UpdateIssueBookData();
+                dataAccessC.UpdateIssueBookData();
 
                 Bookvector[i].setCount(Bookvector[i].getCount() - 1);
                 bookloan = 1;
@@ -183,7 +183,7 @@ void CustomerUI::listbooks()
             cout << "\n\t*****************************************************************************************\n";
             cout << "\t\tBook is issued to you successfully...Happy Reading :)\n\n";
             cout << "\n\t*****************************************************************************************\n";
-            bookDataC.UpdateBookData();
+            dataAccessC.UpdateBookData();
             customerInterface();
         }
         else

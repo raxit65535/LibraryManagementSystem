@@ -1,6 +1,3 @@
-// #include "UserData.h"
-#include "BookData.h"
-#include "UserData.h"
 #include "Functions.h"
 #include "Staff.h"
 #include "Log.h"
@@ -14,15 +11,14 @@ using namespace std;
 
 string loggedinUser;
 Functions fun;
-BookData bD;
-UserData uD;
+DataAccess dAccess;
 
 int main()
 {
     //try get the same vector from the return of this method, try not to duplicate a vector
     //loading the data into vectors....
-    uD.LoadData();
-    bD.LoadData();
-    bD.LoadIssueBookData();
+    dAccess.LoadUserData();
+    dAccess.LoadBookData();
+    dAccess.LoadIssueBookData();
     fun.startup();    
 }

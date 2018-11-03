@@ -2,8 +2,7 @@
 #include "Staff.h"
 #include "Customer.h"
 #include "Log.h"
-#include "BookData.h"
-#include "UserData.h"
+#include "DataAccess.h"
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -12,8 +11,7 @@ using namespace std;
 
 Staff staff;
 Customer customer;
-BookData bookDataF;
-UserData userDataF;
+DataAccess dAccessF;
 
 
 extern vector<User> Uservector;
@@ -69,7 +67,7 @@ int Functions::registration(string name, string username, string password)
     else
     {
         registerstatus = 1;
-        userDataF.AddUser(name,username,password);
+        dAccessF.AddUser(name,username,password);
     }
 
     return registerstatus;
@@ -141,7 +139,7 @@ void systemUI::registrationInterface()
         cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tThank you for registering, Please login into the system\n";
         cout << "\n\t*****************************************************************************************\n";
-        userDataF.LoadData();        
+        dAccessF.LoadUserData();        
         startup();
     }
     else

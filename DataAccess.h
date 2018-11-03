@@ -1,34 +1,25 @@
+#ifndef service_h
+#define service_h
+
 #include <iostream>
-#include "BookData.h"
 #include "BookDataDBA.h"
+#include "Book.h"
+#include "Log.h"
+#include <vector>
 
 using namespace std;
-namespace DataAccess
-{
+#include <string>
 
-    BookDataDBA bDBA;
+class DataAccess {
+    public:
+        void LoadBookData();
+        void LoadIssueBookData();
+        void UpdateBookData();
+        void UpdateIssueBookData();  
 
-    vector<Book> Bookvector1 ;
-    vector<Log> IssuedBookvector;
+        void LoadUserData();
+        void AddUser(string name,string username, string password);      
+};
+#endif
 
-    void LoadData()
-    {
-        Bookvector1 = bDBA.LoadBookDataDBA();
-    }
-
-    void LoadIssueBookData()
-    {
-        IssuedBookvector = bDBA.LoadIssueBookDataDBA();
-    }
-
-    void UpdateBookData()
-    {
-        bDBA.UpdateBookDataDBA();
-    }
-
-    void UpdateIssueBookData()
-    {
-        bDBA.UpdateIssueBookDataDBA();
-    }
-
-} // namespace DataAccess
+//service layer

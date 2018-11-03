@@ -1,8 +1,8 @@
 #include "Customer.h"
 #include "Staff.h"
 #include "Functions.h"
+#include "DataAccess.h"
 #include "Log.h"
-#include "BookData.h"
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -13,7 +13,7 @@ extern vector<Book> Bookvector;
 extern vector<User> Uservector;
 extern vector<Log> IssuedBookvector;
 extern string loggedinUser;
-BookData bookData;
+DataAccess dataAccessS;
 
 void UILayer::returnBookInterface()
 {
@@ -60,7 +60,7 @@ int Staff::returnIssuedBook(string isbn, string username)
 
                 Bookvector[j].setCount(Bookvector[j].getCount() + 1);
                 Functions bookupdate;
-                bookData.UpdateBookData();
+                dataAccessS.UpdateBookData();
 
         }
     }
@@ -73,7 +73,7 @@ int Staff::returnIssuedBook(string isbn, string username)
 
             IssuedBookvector[i].setstatus("returned");
             Functions logupdate;
-            bookData.UpdateIssueBookData();
+            dataAccessS.UpdateIssueBookData();
             ret = 1;
             return ret;
         }
