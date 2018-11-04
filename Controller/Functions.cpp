@@ -1,8 +1,8 @@
 #include "Functions.h"
 #include "Staff.h"
 #include "Customer.h"
-#include "Log.h"
-#include "DataAccess.h"
+#include "../Model/Log.h"
+#include "../Model/DataAccess.h"
 #include <iostream>
 #include <string>
 #include <fstream>

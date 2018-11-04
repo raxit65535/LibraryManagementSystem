@@ -1,16 +1,8 @@
 #ifndef customerUI_h
 #define customerUI_h
 
+#include "../UserInterfaceLayer/UserInterface.h"
 #include <string>
-
-// * This class contains abstract method to specific for Customer's user interface
-class CustomerUI
-{
-    public:    
-        virtual void customerInterface();
-        virtual void listbooks();
-        virtual void showdetails();
-};
 
 // * This class implements methods from CustomerUI class.
 // * It contains methods specific to the customer

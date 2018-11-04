@@ -27,7 +27,7 @@ vector<User> Uservector;
 // * It updates book's count in the database file
 void BookDataPersistance::UpdateBookDataDBA()
 {
-    ofstream userFile("Books.txt");
+    ofstream userFile("DataFiles/Books.txt");
     if (userFile.is_open())
     {
         for (auto i : Bookvector)
@@ -47,7 +47,7 @@ void BookDataPersistance::UpdateBookDataDBA()
 // * It keeps the date of borrow or return of the book aling with the customer name
 void Logging::UpdateIssueBookDataDBA(){
 
-    ofstream userFile("IssuedBook.txt");
+    ofstream userFile("DataFiles/IssuedBook.txt");
     if (userFile.is_open())
     {
         for (auto i : IssuedBookvector)
@@ -71,7 +71,7 @@ vector<Book> BookDataPersistance :: LoadBookDataDBA()
 Book oldbook;
     string str;
 
-    ifstream fin("Books.txt"); // Open and read Book.txt
+    ifstream fin("DataFiles/Books.txt"); // Open and read Book.txt
     if (!fin)
     { // If can't open
         cerr << "Books.txt can't open" << endl;
@@ -109,7 +109,7 @@ vector<Log> Logging :: LoadIssueBookDataDBA()
     Log oldlog;
     string str;
 
-    ifstream fin("IssuedBook.txt"); // Open and read Book.txt
+    ifstream fin("DataFiles/IssuedBook.txt"); // Open and read Book.txt
     if (!fin)
     { // If can't open
         cerr << ".txt can't open" << endl;
@@ -152,7 +152,7 @@ vector<User> DataAccess::LoadUserDataDBA()
     User olduser;
     string str;
 
-    ifstream fin("User.txt"); // Open and read User.txt
+    ifstream fin("DataFiles/User.txt"); // Open and read User.txt
     if (!fin)
     { // If can't open
         cerr << "User.txt can't open" << endl;
@@ -189,7 +189,7 @@ void DataAccess::AddUser(string name,string username, string password)
     olduser.setStatus("3");
     Uservector.push_back(olduser);
 
-    ofstream userFile("User.txt", std::ofstream::out | std::ofstream::app);
+    ofstream userFile("DataFiles/User.txt", std::ofstream::out | std::ofstream::app);
     if (userFile.is_open())
     {
         userFile << name + " " + username + " " + password + " 3"

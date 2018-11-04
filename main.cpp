@@ -1,8 +1,8 @@
-#include "Customer.h"
-#include "DataAccess.h"
-#include "Functions.h"
-#include "Log.h"
-#include "Staff.h"
+#include "Controller/Customer.h"
+#include "Model/DataAccess.h"
+#include "Controller/Functions.h"
+#include "Model/Log.h"
+#include "Controller/Staff.h"
 
 #include <iostream>
 #include <stdio.h>
