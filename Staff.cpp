@@ -16,6 +16,7 @@ extern vector<Log> IssuedBookvector;
 extern string loggedinUser;
 DataAccess dataAccessS;
 
+// * This method displays interface for the staff to return the borrowed book
 void UILayer::returnBookInterface()
 {
     string username, isbn;
@@ -45,44 +46,41 @@ void UILayer::returnBookInterface()
         cout << "\n\t*****************************************************************************************\n";
         returnBookInterface();
     }
-
-    
 }
 
+// * This method checks if the book is issued to the customer.
+// * If the isbn and username matches, then book with the given
+//   isbn number is issued to the customer with given username
 int Staff::returnIssuedBook(string isbn, string username)
 {
-
-    //write logic to retun the issued book here.
     int ret = 0;
-
-    for (int j = 0; j < Bookvector.size(); j++)
-    {
-        if(Bookvector[j].getIsbn() == isbn){
-
-                Bookvector[j].setCount(Bookvector[j].getCount() + 1);
-                Functions bookupdate;
-                dataAccessS.UpdateBookDataDBA();
-
-        }
-    }
 
     for (int i = 0; i < IssuedBookvector.size(); i++)
     {
-
+        //checks the IssuedBookvector to see if the the book with given isbn is issued to the customer with the given username
         if (IssuedBookvector[i].getIsbn() == isbn && IssuedBookvector[i].getUsername() == username && IssuedBookvector[i].getstatus() == "checked-out")
         {
-
             IssuedBookvector[i].setstatus("returned");
-            Functions logupdate;
             dataAccessS.UpdateIssueBookDataDBA();
             ret = 1;
+
+            //increases the count of the book from Bookvector after it is returned and update the database
+            for (int j = 0; j < Bookvector.size(); j++)
+            {                
+                if (Bookvector[j].getIsbn() == isbn)
+                {
+
+                    Bookvector[j].setCount(Bookvector[j].getCount() + 1);
+                    dataAccessS.UpdateBookDataDBA();
+                }
+            }
             return ret;
         }
     }
-
     return ret;
 }
 
+// * This method duisplays the home interface for the staff user
 void UILayer::staffInterface()
 {
     int i;
@@ -122,14 +120,16 @@ void UILayer::staffInterface()
     }
     else
     {
-        cout << "\n\t\tPlease enter correct option :(";
+        cout << "\n\t*****************************************************************************************\n";
+        cout << "\n\t\tPlease enter correct option :(\n";
+         cout << "\n\t*****************************************************************************************\n";
         staffInterface();
     }
 }
 
+// * This method displayes the book to the staff
 void UILayer::viewBooksAvailability()
 {
-
     int i;
     //Functions functions;
     cout << "Books Availability in the System:" << endl;
@@ -180,9 +180,9 @@ void UILayer::viewBooksAvailability()
     }
 }
 
+// * This method displays the details from the log file.
 void UILayer::viewlog()
 {
-
     int i;
     cout << "This is the details:" << endl;
     cout << "--------------------------------------------------------------------------------------------------------------------------------------------" << endl;
