@@ -1,10 +1,11 @@
-#include "Functions.h"
-#include "Staff.h"
-#include "Log.h"
 #include "Customer.h"
 #include "DataAccess.h"
-#include <stdio.h>
+#include "Functions.h"
+#include "Log.h"
+#include "Staff.h"
+
 #include <iostream>
+#include <stdio.h>
 #include <vector>
 
 using namespace std;
@@ -15,8 +16,6 @@ DataAccess dAccess;
 
 int main()
 {
-    //try get the same vector from the return of this method, try not to duplicate a vector
-    //loading the data into vectors....
     dAccess.LoadUserDataDBA();
     dAccess.LoadBookDataDBA();
     dAccess.LoadIssueBookDataDBA();

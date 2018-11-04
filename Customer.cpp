@@ -1,22 +1,29 @@
 #include "Customer.h"
+#include "DataAccess.h"
 #include "Functions.h"
 #include "Log.h"
-#include "DataAccess.h"
-#include <iostream>
+
 #include <iomanip>
+#include <iostream>
 
 using namespace std;
 
 Functions functions;
-
-extern vector<Book> Bookvector;
-extern vector<User> Uservector;
-extern vector<Log> IssuedBookvector;
-extern string loggedinUser;
 DataAccess dataAccessC;
 
+extern vector<Book> Bookvector;
+extern vector<Log> IssuedBookvector;
+extern string loggedinUser;
+extern vector<User> Uservector;
+
+// * This method is used to request a book loan when customer enters a isbn
+// * It first checks
+//      (1) if the book matching with 'isbn' number is available and
+//      (2) customer has not alreay borrowed that book
+//  It the above conditions are true then, the book is issued to the customer
 int Customer::RequestBookLoan(std::string isbn)
 {
+    Log newlog;
     int bookloan = 0;
     bool isavailable = isAvailable(isbn);
     bool alreadyissued = isAlreadyissued(isbn);
@@ -24,9 +31,10 @@ int Customer::RequestBookLoan(std::string isbn)
     {
         for (int i = 0; i < Bookvector.size(); i++)
         {
+            // this code block updates the book log with the name of the customer,
+            // book details, issue date and return date
             if (Bookvector[i].getIsbn() == isbn)
             {
-                Log newlog;
                 time_t rawtime;
                 struct tm *timeinfo;
                 char buffer[80];
@@ -38,7 +46,7 @@ int Customer::RequestBookLoan(std::string isbn)
                 strftime(buffer, sizeof(buffer), "%d-%m-%Y", timeinfo);
                 std::string idate(buffer);
 
-                rawtime +=60*60*24*40;
+                rawtime += 60 * 60 * 24 * 40;
 
                 timeinfo = localtime(&rawtime);
 
@@ -53,9 +61,9 @@ int Customer::RequestBookLoan(std::string isbn)
                 newlog.setReturnDate(rdate);
                 IssuedBookvector.push_back(newlog);
 
-                Functions f;
                 dataAccessC.UpdateIssueBookDataDBA();
 
+                // If the book is issued to the customer, then the count of that book is decreased by 1
                 Bookvector[i].setCount(Bookvector[i].getCount() - 1);
                 bookloan = 1;
                 return bookloan;
@@ -66,6 +74,7 @@ int Customer::RequestBookLoan(std::string isbn)
     return bookloan;
 }
 
+// * This method is used to show the details of the book borrowed by the customer.
 void CustomerUI::showdetails()
 {
     int i;
@@ -82,7 +91,8 @@ void CustomerUI::showdetails()
                  << setw(21) << i.getIssueDate() << "|" << setw(25) << i.getReturnDate() << "|" << setw(18) << i.getstatus() << "|" << endl;
         }
     }
-    cout << "--------------------------------------------------------------------------------------------------------------------------\n\n"<< endl;
+    cout << "--------------------------------------------------------------------------------------------------------------------------\n\n"
+         << endl;
 
     cout << "1..Home Interface\t\t\t 2. Log out\t\t\t3. Close Application\n\n";
     cout << "Choose the option: ";
@@ -116,20 +126,19 @@ void CustomerUI::showdetails()
         showdetails();
         cout << "\n\t*****************************************************************************************\n";
     }
-
-
 }
 
+// * This method checks if the book matching the entered isbn is present in the Bookvector
 bool Customer::isAvailable(std::string isbn)
 {
     bool availability = false;
 
     for (auto i : Bookvector)
     {
-
         if (i.getIsbn() == isbn)
         {
-
+            // if book is present, then it checks if the count is greater than 0.
+            // If count is 0 then the book is not available
             if (i.getCount() > 0)
             {
                 bool availability = true;
@@ -137,21 +146,20 @@ bool Customer::isAvailable(std::string isbn)
             }
         }
     }
-
     return availability;
 }
 
+// * This methods lists all the book (along with details) which is available in the dataabase
 void CustomerUI::listbooks()
 {
     int i;
-    //Functions functions;
     cout << "This is the list of all the book:" << endl;
     cout << "--------------------------------------------------------------------------------------------------------------------------" << endl;
     cout << "|       ISBN       |             Name            |      Author      |           Information           |   Availability    |" << endl;
     cout << "--------------------------------------------------------------------------------------------------------------------------" << endl;
+    
     for (auto i : Bookvector)
     {
-
         cout << "|" << setw(18) << i.getIsbn() << "|" << setw(29) << i.getName() << "|"
              << setw(18) << i.getAuthor() << "|" << setw(33) << i.getInformation() << "|" << setw(19) << i.getCount() << "|" << endl;
     }
@@ -217,13 +225,14 @@ void CustomerUI::listbooks()
     }
 }
 
+// * This method check if the book with matching isbn is already issued to the customer.
 bool Customer::isAlreadyissued(std::string isbn)
 {
     bool issuestatus = false;
 
     for (auto i : IssuedBookvector)
     {
-
+        //It checks if the isbn is matching with the userID and status is 'checked-out'. 
         if (i.getIsbn() == isbn && i.getUsername() == loggedinUser && i.getstatus() == "checked-out")
         {
             bool issuestatus = true;
@@ -233,9 +242,9 @@ bool Customer::isAlreadyissued(std::string isbn)
     return issuestatus;
 }
 
+// * This method displayes the home interface for the customer
 void CustomerUI::customerInterface()
 {
-
     int i;
     cout << "\n\t*********** LIBRARY MANAGEMENT SYSTEM - Customer Interface ***********\n";
     cout << "\n\t\t Hello :" << loggedinUser << "\t Welocme to the System\n";

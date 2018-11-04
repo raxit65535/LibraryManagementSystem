@@ -1,24 +1,30 @@
-#include "DataAccess.h"
+#include "Book.h"
 #include "BookDataPersistance.h"
+#include "DataAccess.h"
+#include "Log.h"
 #include "Logging.h"
 #include "User.h"
-#include <vector>
-#include "Book.h"
-#include "Log.h"
+
+#include <fstream>
 #include <iostream>
 #include <string>
-#include <fstream>
+#include <vector>
 
-
-
+// * Bookvector contains all the books along with related information.
 extern vector<Book> Bookvector;
+
+// * IssueBookvector contains all the books that is issued (borrowed or returned)
 extern vector<Log> IssuedBookvector;
+
+// * Uservector contains all the user of the system
 extern vector<User> Uservector;
 
 vector<Book> Bookvector;
-vector<User> Uservector;
 vector<Log> IssuedBookvector;
+vector<User> Uservector;
 
+// * This method is called when ever there is any book transaction (borrow or return)
+// * It updates book's count in the database file
 void BookDataPersistance::UpdateBookDataDBA()
 {
     ofstream userFile("Books.txt");
@@ -37,6 +43,8 @@ void BookDataPersistance::UpdateBookDataDBA()
     }
 }
 
+// * This method updates the logs when ever there is any transaction (borrow or return).
+// * It keeps the date of borrow or return of the book aling with the customer name
 void Logging::UpdateIssueBookDataDBA(){
 
     ofstream userFile("IssuedBook.txt");
@@ -57,6 +65,7 @@ void Logging::UpdateIssueBookDataDBA(){
 
 }
 
+// * This method returns the updated Book vector which is used to get the latest data present in the database.
 vector<Book> BookDataPersistance :: LoadBookDataDBA()
 {
 Book oldbook;
@@ -88,21 +97,13 @@ Book oldbook;
 
         i = str.find(" ");
         oldbook.setCount(stoi(str.substr(0, i))); // Divide str by spacebar and get count
-        //cout << "Count of book is " << oldbook.getCount();
         Bookvector.push_back(oldbook); // Add to Bookvector
     }
     fin.close(); // Close Books.txt
-    // cout << "printing the Bookvector from DBA\n\n";
-    // for (auto i : Bookvector)
-    // {
-    //     int j = i.getCount();
-    //     cout << i.getName() + "\t\t" + i.getIsbn() + "\t\t" + i.getAuthor() + "\t\t" + i.getInformation() + "\t\t" << j;
-    //     cout << "\n";
-    // }
-    // cout << "end *************************\n\n";
     return Bookvector;
 }
 
+// * This method returns book Log which is used to track the book transaction
 vector<Log> Logging :: LoadIssueBookDataDBA()
 {
     Log oldlog;
@@ -142,15 +143,10 @@ vector<Log> Logging :: LoadIssueBookDataDBA()
         IssuedBookvector.push_back(oldlog); // Add to Bookvector
     }
     fin.close();
-
-    // cout<<"printing the issuedbookvector";
-    // for(auto i : IssuedBookvector){
-
-    //     cout<< i.getBookname() << i.getIsbn() << i.getIssueDate() << i.getReturnDate() << i.getUsername()<<"\n";
-    // }
     return IssuedBookvector;
 }
 
+// * This method returns the updated User vector which is used to get the latest user present in the database.
 vector<User> DataAccess::LoadUserDataDBA()
 {
     User olduser;
@@ -165,11 +161,11 @@ vector<User> DataAccess::LoadUserDataDBA()
     while (getline(fin, str))
     {
         size_t i = str.find(" ");          // Find fisrt spacebar
-        olduser.setname(str.substr(0, i)); // Divide str by spacebar and get username
+        olduser.setname(str.substr(0, i)); // Divide str by spacebar and get name
         str = str.substr(i + 1);
 
         i = str.find(" ");                     // Find second spacebar
-        olduser.setusername(str.substr(0, i)); // Divide str by spacebar and get password
+        olduser.setusername(str.substr(0, i)); // Divide str by spacebar and get userID
         str = str.substr(i + 1);
 
         i = str.find(" ");                     // Find second spacebar
@@ -180,17 +176,10 @@ vector<User> DataAccess::LoadUserDataDBA()
         Uservector.push_back(olduser); // Add to lib.UserArray
     }
     fin.close(); // Close User.txt
-
-    // cout << "printing the Uservector\n\n";
-    // for (auto i : Uservector)
-    // {
-
-    //     cout << i.getname() + "\t\t" + i.getusername() + "\t\t" + i.getpasswd() + "\t\t" + i.getStatus() + "\n\n";
-    // }
     return Uservector;
 }
 
-
+// * This method is used to Add a new user in the database
 void DataAccess::AddUser(string name,string username, string password)
 {
     User olduser;

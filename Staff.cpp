@@ -1,11 +1,12 @@
 #include "Customer.h"
-#include "Staff.h"
-#include "Functions.h"
 #include "DataAccess.h"
+#include "Functions.h"
 #include "Log.h"
+#include "Staff.h"
+
+#include <iomanip>
 #include <iostream>
 #include <string>
-#include <iomanip>
 
 using namespace std;
 

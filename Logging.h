@@ -1,23 +1,21 @@
-#ifndef Logging_h
-#define Logging_h
+#ifndef logging_h
+#define logging_h
 
+#include "Log.h"
 #include <string>
 #include "User.h"
-#include "Log.h"
 #include <vector>
+
 using namespace std;
 
+// * This class is used for managing the logs of books
+// * It contains abstract methods which is implemented in DataAccess
+//  concrete class
 class Logging
 {
-
     public:
         virtual vector<Log> LoadIssueBookDataDBA();
         virtual void UpdateIssueBookDataDBA();
-
-
 };
 
 #endif
-
-//this is abstract class that defines methods. this class is inherited by DataAccess class
-// in DataAccess class, these methods are implemented
