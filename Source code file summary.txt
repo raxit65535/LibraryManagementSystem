@@ -1,0 +1,27 @@
+Following is the hierarchal (physical directory and subdirectory) listing of the files (source, header, data, etc.) in our solution.  
+
+Controller	
+	Customer.cpp
+	Customer.h
+	Functions.cpp
+	Functions.h
+	Staff.cpp
+	Staff.h
+DataFiles	
+	Books.txt
+	IssuedBook.txt
+	User.txt
+Model	
+	Book.h
+	BookDataPersistance.h
+	DataAccess.cpp
+	DataAccess.h
+	Log.h
+	Logging.h
+	User.h
+UserInterfaceLayer	
+	UserInterface.h
+README.md	
+code.exe	
+lms	
+main.cpp	
