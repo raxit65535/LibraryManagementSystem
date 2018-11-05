@@ -61,7 +61,7 @@ int Customer::RequestBookLoan(std::string isbn)
                 newlog.setReturnDate(rdate);
                 IssuedBookvector.push_back(newlog);
 
-                dataAccessC.UpdateIssueBookDataDBA();
+                dataAccessC.UpdateIssueBookData();
 
                 // If the book is issued to the customer, then the count of that book is decreased by 1
                 Bookvector[i].setCount(Bookvector[i].getCount() - 1);
@@ -191,7 +191,7 @@ void CustomerUI::listbooks()
             cout << "\n\t*****************************************************************************************\n";
             cout << "\t\tBook is issued to you successfully...Happy Reading :)\n\n";
             cout << "\n\t*****************************************************************************************\n";
-            dataAccessC.UpdateBookDataDBA();
+            dataAccessC.UpdateBookData();
             customerInterface();
         }
         else

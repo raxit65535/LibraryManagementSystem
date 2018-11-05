@@ -61,7 +61,7 @@ int Staff::returnIssuedBook(string isbn, string username)
         if (IssuedBookvector[i].getIsbn() == isbn && IssuedBookvector[i].getUsername() == username && IssuedBookvector[i].getstatus() == "checked-out")
         {
             IssuedBookvector[i].setstatus("returned");
-            dataAccessS.UpdateIssueBookDataDBA();
+            dataAccessS.UpdateIssueBookData();
             ret = 1;
 
             //increases the count of the book from Bookvector after it is returned and update the database
@@ -71,7 +71,7 @@ int Staff::returnIssuedBook(string isbn, string username)
                 {
 
                     Bookvector[j].setCount(Bookvector[j].getCount() + 1);
-                    dataAccessS.UpdateBookDataDBA();
+                    dataAccessS.UpdateBookData();
                 }
             }
             return ret;

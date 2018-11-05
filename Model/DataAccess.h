@@ -18,7 +18,7 @@ using namespace std;
 class DataAccess : public BookDataPersistance, public Logging
 {
   public:
-    vector<User> LoadUserDataDBA();
+    vector<User> LoadUserData();
     void AddUser(string name, string username, string password);
 };
 

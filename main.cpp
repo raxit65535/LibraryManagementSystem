@@ -16,8 +16,8 @@ DataAccess dAccess;
 
 int main()
 {
-    dAccess.LoadUserDataDBA();
-    dAccess.LoadBookDataDBA();
-    dAccess.LoadIssueBookDataDBA();
+    dAccess.LoadUserData();
+    dAccess.LoadBookData();
+    dAccess.LoadIssueBookData();
     fun.startup();    
 }

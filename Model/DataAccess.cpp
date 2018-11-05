@@ -25,7 +25,7 @@ vector<User> Uservector;
 
 // * This method is called when ever there is any book transaction (borrow or return)
 // * It updates book's count in the database file
-void BookDataPersistance::UpdateBookDataDBA()
+void BookDataPersistance::UpdateBookData()
 {
     ofstream userFile("DataFiles/Books.txt");
     if (userFile.is_open())
@@ -45,7 +45,7 @@ void BookDataPersistance::UpdateBookDataDBA()
 
 // * This method updates the logs when ever there is any transaction (borrow or return).
 // * It keeps the date of borrow or return of the book aling with the customer name
-void Logging::UpdateIssueBookDataDBA(){
+void Logging::UpdateIssueBookData(){
 
     ofstream userFile("DataFiles/IssuedBook.txt");
     if (userFile.is_open())
@@ -66,7 +66,7 @@ void Logging::UpdateIssueBookDataDBA(){
 }
 
 // * This method returns the updated Book vector which is used to get the latest data present in the database.
-vector<Book> BookDataPersistance :: LoadBookDataDBA()
+vector<Book> BookDataPersistance :: LoadBookData()
 {
 Book oldbook;
     string str;
@@ -104,7 +104,7 @@ Book oldbook;
 }
 
 // * This method returns book Log which is used to track the book transaction
-vector<Log> Logging :: LoadIssueBookDataDBA()
+vector<Log> Logging :: LoadIssueBookData()
 {
     Log oldlog;
     string str;
@@ -147,7 +147,7 @@ vector<Log> Logging :: LoadIssueBookDataDBA()
 }
 
 // * This method returns the updated User vector which is used to get the latest user present in the database.
-vector<User> DataAccess::LoadUserDataDBA()
+vector<User> DataAccess::LoadUserData()
 {
     User olduser;
     string str;

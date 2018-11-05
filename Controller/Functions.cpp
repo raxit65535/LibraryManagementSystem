@@ -139,7 +139,7 @@ void systemUI::registrationInterface()
         cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tThank you for registering, Please login into the system\n";
         cout << "\n\t*****************************************************************************************\n";
-        dAccessF.LoadUserDataDBA();        
+        dAccessF.LoadUserData();        
         startup();
     }
     else

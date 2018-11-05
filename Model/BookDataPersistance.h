@@ -11,8 +11,8 @@ using namespace std;
 // * This class contains method which is specific to a particular database.
 class BookDataPersistance{
     public:
-        virtual vector<Book> LoadBookDataDBA();
-        virtual void UpdateBookDataDBA();
+        virtual vector<Book> LoadBookData();
+        virtual void UpdateBookData();
 };
 
 #endif
