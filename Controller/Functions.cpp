@@ -1,6 +1,7 @@
 #include "Functions.h"
 #include "Staff.h"
 #include "Customer.h"
+#include "Manager.h"
 #include "../Model/Log.h"
 #include "../Model/DataAccess.h"
 #include <iostream>
@@ -11,6 +12,7 @@ using namespace std;
 
 Staff staff;
 Customer customer;
+Manager manager;
 DataAccess dAccessF;
 
 
@@ -95,8 +97,7 @@ void systemUI::loginInterface()
     //status = 9;
     if (status == 1)
     {
-        //only one Manager, there is no interface for manager at this moment.
-        //manager's login information will be there in the User.txt
+        manager.managerInterface();
     }
     if (status == 2)
     {

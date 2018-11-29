@@ -33,5 +33,13 @@ class UILayer
         virtual void returnBookInterface();
 };
 
+class ManagerUI : public UILayer
+{
+    public:
+        virtual void managerInterface();
+        virtual void viewlog();
+        virtual void viewBooksAvailability();
+        virtual void returnBookInterface();
+};
 
 #endif

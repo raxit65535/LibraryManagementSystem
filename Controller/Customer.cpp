@@ -80,7 +80,7 @@ void CustomerUI::showdetails()
     int i;
     cout << "This is the details:" << endl;
     cout << "--------------------------------------------------------------------------------------------------------------------------" << endl;
-    cout << "|       ISBN       |             BookName            |      IssueDate      |        ReturnDate       |      Status      |" << endl;
+    cout << "|       ISBN       |             BookName            |      IssueDate      |        ReturnDate       |      Status        |" << endl;
     cout << "--------------------------------------------------------------------------------------------------------------------------" << endl;
     for (auto i : IssuedBookvector)
     {
