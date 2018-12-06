@@ -76,7 +76,8 @@ int Customer::RequestBookLoan(std::string isbn)
 
         ExternalSystem ext;
 
-        string msg = ext.BookRequestProcess("Pollak Library CSU Fullerton");
+        string library_name = "Pollak Library CSU Fullerton";
+        string msg = ext.BookRequestProcess(library_name);
         cout << "\n\t\t"+msg;
         bookloan = 2;
     }

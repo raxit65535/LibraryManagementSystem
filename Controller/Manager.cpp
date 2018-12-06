@@ -41,7 +41,7 @@ void ManagerUI::managerInterface()
 
     if (i == 1)
     {
-        viewBooksAvailability();
+        listbooks();
     }
     else if (i == 2)
     {
@@ -49,7 +49,7 @@ void ManagerUI::managerInterface()
     }
     else if (i == 3)
     {
-        viewlog();
+        showdetails();
     }
     else if (i == 4)
     {
@@ -181,7 +181,7 @@ void ManagerUI::managerInterface()
     }
 }
 
-void ManagerUI::viewBooksAvailability()
+void ManagerUI::listbooks()
 {
     int i;
     //Functions functions;
@@ -229,7 +229,7 @@ void ManagerUI::viewBooksAvailability()
         cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tPlease enter correct option :(\n";
         cout << "\n\t*****************************************************************************************\n";
-        viewBooksAvailability();
+        listbooks();
     }
 }
 
@@ -265,7 +265,7 @@ void ManagerUI::returnBookInterface()
     }
 }
 
-void ManagerUI::viewlog()
+void ManagerUI::showdetails()
 {
     int i;
     cout << "This is the details:" << endl;
@@ -311,7 +311,7 @@ void ManagerUI::viewlog()
         cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tPlease enter correct option :(\n";
         cout << "\n\t*****************************************************************************************\n";
-        viewlog();
+        showdetails();
     }
 }
 

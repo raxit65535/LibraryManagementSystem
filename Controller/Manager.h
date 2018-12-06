@@ -9,13 +9,22 @@
 #include "Staff.h"
 #include <string>
 
+class ManagerInterface
+{
+
+  public:
+    virtual int AddBook(string name, string isbn, string author, string information, int count) = 0;
+    virtual int AddStaff(string name, string username, string password) = 0;
+
+};
+
 // * This class implements methods from CustomerUI class.
 // * It contains methods specific to the customer
-class Manager : public ManagerUI, public Staff, public Customer, public Functions
+class Manager : public ManagerUI,public ManagerInterface, public Staff, public Customer, public Functions
 {
-    public:
-        int AddBook(string name, string isbn, string author, string information, int count);
-        int AddStaff(string name, string username, string password);
+  public:
+    virtual int AddBook(string name, string isbn, string author, string information, int count);
+    virtual int AddStaff(string name, string username, string password);
 };
 
 #endif

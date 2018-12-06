@@ -99,7 +99,7 @@ void UILayer::staffInterface()
 
     if (i == 1)
     {
-        viewBooksAvailability();
+        listbooks();
     }
     else if (i == 2)
     {
@@ -107,7 +107,7 @@ void UILayer::staffInterface()
     }
     else if (i == 3)
     {
-        viewlog();
+        showdetails();
     }
     else if (i == 4)
     {
@@ -128,7 +128,7 @@ void UILayer::staffInterface()
 }
 
 // * This method displayes the book to the staff
-void UILayer::viewBooksAvailability()
+void UILayer::listbooks()
 {
     int i;
     //Functions functions;
@@ -176,12 +176,12 @@ void UILayer::viewBooksAvailability()
         cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tPlease enter correct option :(\n";
         cout << "\n\t*****************************************************************************************\n";
-        viewBooksAvailability();
+        showdetails();
     }
 }
 
 // * This method displays the details from the log file.
-void UILayer::viewlog()
+void UILayer::showdetails()
 {
     int i;
     cout << "This is the details:" << endl;
@@ -227,6 +227,6 @@ void UILayer::viewlog()
         cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tPlease enter correct option :(\n";
         cout << "\n\t*****************************************************************************************\n";
-        viewlog();
+        listbooks();
     }
 }

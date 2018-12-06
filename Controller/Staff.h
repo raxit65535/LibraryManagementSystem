@@ -4,11 +4,17 @@
 #include "../UserInterfaceLayer/UserInterface.h"
 #include <string>
 
+class StaffInterface
+{
+  public:
+    virtual int returnIssuedBook(std::string isbn, std::string username) = 0;
+};
+
 // * This class contains method specific to the functionality related to the staff
 class Staff : public UILayer
 {
-    public:
-        int returnIssuedBook(std::string isbn, std::string username);
+  public:
+    virtual int returnIssuedBook(std::string isbn, std::string username);
 };
 
 #endif

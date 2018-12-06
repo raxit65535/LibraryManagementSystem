@@ -18,27 +18,27 @@ class systemUI
 class CustomerUI
 {
     public:    
-        virtual void customerInterface();
+        void customerInterface();
         virtual void listbooks();
         virtual void showdetails();
 };
 
 // * This class contains abstract methods for Staff's UI
-class UILayer
+class UILayer: public CustomerUI
 {
     public:
-        virtual void staffInterface();
-        virtual void viewlog();
-        virtual void viewBooksAvailability();
+        void staffInterface();
+        virtual void showdetails();
+        virtual void listbooks();
         virtual void returnBookInterface();
 };
 
 class ManagerUI : public UILayer
 {
     public:
-        virtual void managerInterface();
-        virtual void viewlog();
-        virtual void viewBooksAvailability();
+        void managerInterface();
+        virtual void showdetails();
+        virtual void listbooks();
         virtual void returnBookInterface();
 };
 
