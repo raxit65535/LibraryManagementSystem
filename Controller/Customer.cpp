@@ -2,7 +2,7 @@
 #include "../Model/DataAccess.h"
 #include "Functions.h"
 #include "../Model/Log.h"
-
+#include "ExternalSystem.h"
 #include <iomanip>
 #include <iostream>
 
@@ -69,6 +69,16 @@ int Customer::RequestBookLoan(std::string isbn)
                 return bookloan;
             }
         }
+    }
+
+    // If the book is not available, (count = 0), then the system will call external interface
+    else if(!isavailable){
+
+        ExternalSystem ext;
+
+        string msg = ext.BookRequestProcess("Pollak Library CSU Fullerton");
+        cout << "\n\t\t"+msg;
+        bookloan = 2;
     }
 
     return bookloan;
@@ -193,6 +203,11 @@ void CustomerUI::listbooks()
             cout << "\n\t*****************************************************************************************\n";
             dataAccessC.UpdateBookData();
             customerInterface();
+        } 
+        else if(status == 2){
+
+            cout << "\n\t\tAbove message is from External Interface, please get the Contact information from front desk. :)\n\n";
+            listbooks();
         }
         else
         {

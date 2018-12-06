@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/lms",
+            "program": "${workspaceFolder}/code",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

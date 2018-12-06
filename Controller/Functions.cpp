@@ -15,7 +15,6 @@ Customer customer;
 Manager manager;
 DataAccess dAccessF;
 
-
 extern vector<User> Uservector;
 extern vector<Book> Bookvector;
 // vector<Book> Bookvector;
@@ -55,12 +54,10 @@ bool Functions::isUserExist(string username)
     return false;
 }
 
-
-
 int Functions::registration(string name, string username, string password)
 {
 
-  int registerstatus = 0;
+    int registerstatus = 0;
     if (isUserExist(username))
     {
 
@@ -69,7 +66,7 @@ int Functions::registration(string name, string username, string password)
     else
     {
         registerstatus = 1;
-        dAccessF.AddUser(name,username,password);
+        dAccessF.AddUser(name, username, password);
     }
 
     return registerstatus;
@@ -140,7 +137,7 @@ void systemUI::registrationInterface()
         cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tThank you for registering, Please login into the system\n";
         cout << "\n\t*****************************************************************************************\n";
-        dAccessF.LoadUserData();        
+        dAccessF.LoadUserData();
         startup();
     }
     else
