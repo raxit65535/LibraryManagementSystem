@@ -11,7 +11,7 @@ class StaffInterface
 };
 
 // * This class contains method specific to the functionality related to the staff
-class Staff : public UILayer
+class Staff : public StaffInterface,public UILayer
 {
   public:
     virtual int returnIssuedBook(std::string isbn, std::string username);

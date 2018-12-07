@@ -8,6 +8,8 @@ class CustomerInterface
 {
   public:
     virtual int RequestBookLoan(std::string isbn) = 0;
+    virtual bool isAvailable(std::string isbn) = 0;
+    virtual bool isAlreadyissued(std::string isbn) = 0;
 };
 
 // * This class implements methods from CustomerUI class.
@@ -16,8 +18,8 @@ class Customer : public CustomerUI, public CustomerInterface
 {
   public:
     virtual int RequestBookLoan(std::string isbn);
-    bool isAvailable(std::string isbn);
-    bool isAlreadyissued(std::string isbn);
+    virtual bool isAvailable(std::string isbn);
+    virtual bool isAlreadyissued(std::string isbn);
 };
 
 #endif
