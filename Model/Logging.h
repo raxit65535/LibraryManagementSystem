@@ -14,8 +14,8 @@ using namespace std;
 class Logging
 {
     public:
-        virtual vector<Log> LoadIssueBookData();
-        virtual void UpdateIssueBookData();
+        virtual vector<Log> LoadIssueBookData() = 0;
+        virtual void UpdateIssueBookData() = 0;
 };
 
 #endif

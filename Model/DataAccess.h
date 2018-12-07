@@ -12,14 +12,26 @@
 
 using namespace std;
 
+class DataAccessInterface
+{
+
+public:
+  virtual vector<User> LoadUserData() = 0;
+  virtual void AddUser(string name, string username, string password) = 0;
+};
+
 // * This class acts as a DataAccess Layer.
 // * This is a bridge between the Database and the business login of the application
 // * It contains methods to Log user data and add new user in the account
 class DataAccess : public BookDataPersistance, public Logging
 {
-  public:
-    vector<User> LoadUserData();
-    void AddUser(string name, string username, string password);
+public:
+  vector<User> LoadUserData();
+  void AddUser(string name, string username, string password);
+  vector<Log> LoadIssueBookData();
+  void UpdateIssueBookData();
+  vector<Book> LoadBookData();
+  void UpdateBookData();
 };
 
 #endif
