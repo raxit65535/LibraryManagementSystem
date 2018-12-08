@@ -8,7 +8,7 @@ std::string ExternalSystem::BookRequestProcess(std::string externalLibrary){
 
     if(random == 1){
 
-        return "\n\t\tRequested Book is Available at: "+externalLibrary+ ". Please Contact Library to issue the book....";
+        return "\n\t\tRequested Book is Available at: "+externalLibrary+ ". We will inform you once available for loan at our Library....";
 
     }else{
 

@@ -112,7 +112,7 @@ void UILayer::staffInterface()
     else if (i == 4)
     {
         Functions functions;
-        functions.loginInterface();
+        functions.startup();
     }
     else if (i == 5)
     {

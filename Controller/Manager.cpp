@@ -166,7 +166,7 @@ void ManagerUI::managerInterface()
     else if (i == 6)
     {
         Functions functions;
-        functions.loginInterface();
+        functions.startup();
     }
     else if (i == 7)
     {
