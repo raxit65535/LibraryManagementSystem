@@ -19,8 +19,8 @@ class CustomerUI
 {
     public:    
         void customerInterface();
-        virtual void listbooks();
-        virtual void showdetails();
+        // virtual void listbooks();
+        // virtual void showdetails();
 };
 
 // * This class contains abstract methods for Staff's UI
@@ -28,8 +28,8 @@ class UILayer: public CustomerUI
 {
     public:
         void staffInterface();
-        virtual void showdetails();
-        virtual void listbooks();
+        // virtual void showdetails();
+        // virtual void listbooks();
         virtual void returnBookInterface();
 };
 
@@ -37,8 +37,8 @@ class ManagerUI : public UILayer
 {
     public:
         void managerInterface();
-        virtual void showdetails();
-        virtual void listbooks();
+        // virtual void showdetails();
+        // virtual void listbooks();
         virtual void returnBookInterface();
 };
 

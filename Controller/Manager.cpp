@@ -22,6 +22,7 @@ extern vector<Book> Bookvector;
 extern vector<Log> IssuedBookvector;
 extern string loggedinUser;
 extern vector<User> Uservector;
+DataAccess acdata;
 
 void ManagerUI::managerInterface()
 {
@@ -41,7 +42,8 @@ void ManagerUI::managerInterface()
 
     if (i == 1)
     {
-        listbooks();
+        Manager m;
+        m.listbooks();
     }
     else if (i == 2)
     {
@@ -49,7 +51,8 @@ void ManagerUI::managerInterface()
     }
     else if (i == 3)
     {
-        showdetails();
+        Manager m;
+        m.showdetails();
     }
     else if (i == 4)
     {
@@ -78,7 +81,7 @@ void ManagerUI::managerInterface()
 
         Manager manager;
 
-        bool bookexist = manager.isAvailable(isbn);
+        bool bookexist = manager.isBookAvail(isbn);
 
         if (!bookexist)
         {
@@ -181,7 +184,7 @@ void ManagerUI::managerInterface()
     }
 }
 
-void ManagerUI::listbooks()
+void Manager::listbooks()
 {
     int i;
     //Functions functions;
@@ -265,7 +268,7 @@ void ManagerUI::returnBookInterface()
     }
 }
 
-void ManagerUI::showdetails()
+void Manager::showdetails()
 {
     int i;
     cout << "This is the details:" << endl;
@@ -371,4 +374,53 @@ int Manager::AddBook(string name, string isbn, string author, string information
     }
 
     return 1;
+}
+
+bool Manager::isBookAvail(string isbn)
+{
+    bool availability = false;
+
+    for (auto i : Bookvector)
+    {
+        if (i.getIsbn() == isbn)
+        {
+            // if book is present, then it checks if the count is greater than 0.
+            // If count is 0 then the book is not available
+            if (i.getCount() > 0)
+            {
+                bool availability = true;
+                return availability;
+            }
+        }
+    }
+    return availability;
+}
+
+int Manager::returnIssuedBook(string isbn, string username)
+{
+    int ret = 0;
+
+    for (int i = 0; i < IssuedBookvector.size(); i++)
+    {
+        //checks the IssuedBookvector to see if the the book with given isbn is issued to the customer with the given username
+        if (IssuedBookvector[i].getIsbn() == isbn && IssuedBookvector[i].getUsername() == username && IssuedBookvector[i].getstatus() == "checked-out")
+        {
+            IssuedBookvector[i].setstatus("returned");
+            acdata.UpdateIssueBookData();
+            ret = 1;
+
+            //increases the count of the book from Bookvector after it is returned and update the database
+            for (int j = 0; j < Bookvector.size(); j++)
+            {
+                if (Bookvector[j].getIsbn() == isbn)
+                {
+
+                    Bookvector[j].setCount(Bookvector[j].getCount() + 1);
+                    acdata.UpdateBookData();
+                }
+            }
+            return ret;
+        }
+    }
+    return ret;
 }

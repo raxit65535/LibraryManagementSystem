@@ -45,14 +45,15 @@ void DataAccess::UpdateBookData()
 
 // * This method updates the logs when ever there is any transaction (borrow or return).
 // * It keeps the date of borrow or return of the book aling with the customer name
-void DataAccess::UpdateIssueBookData(){
+void DataAccess::UpdateIssueBookData()
+{
 
     ofstream userFile("DataFiles/IssuedBook.txt");
     if (userFile.is_open())
     {
         for (auto i : IssuedBookvector)
         {
-            userFile << i.getUsername() + ";" + i.getIsbn() + ";" + i.getBookname() + ";" + i.getIssueDate() + ";" << i.getReturnDate() +";"<< i.getstatus() << endl;
+            userFile << i.getUsername() + ";" + i.getIsbn() + ";" + i.getBookname() + ";" + i.getIssueDate() + ";" << i.getReturnDate() + ";" << i.getstatus() << endl;
         }
 
         userFile.close();
@@ -61,14 +62,12 @@ void DataAccess::UpdateIssueBookData(){
     {
         cout << "Unable to open IssueBook.txt file";
     }
-
-
 }
 
 // * This method returns the updated Book vector which is used to get the latest data present in the database.
-vector<Book> DataAccess :: LoadBookData()
+vector<Book> DataAccess ::LoadBookData()
 {
-Book oldbook;
+    Book oldbook;
     string str;
 
     ifstream fin("DataFiles/Books.txt"); // Open and read Book.txt
@@ -97,14 +96,14 @@ Book oldbook;
 
         i = str.find(" ");
         oldbook.setCount(stoi(str.substr(0, i))); // Divide str by spacebar and get count
-        Bookvector.push_back(oldbook); // Add to Bookvector
+        Bookvector.push_back(oldbook);            // Add to Bookvector
     }
     fin.close(); // Close Books.txt
     return Bookvector;
 }
 
 // * This method returns book Log which is used to track the book transaction
-vector<Log> DataAccess :: LoadIssueBookData()
+vector<Log> DataAccess ::LoadIssueBookData()
 {
     Log oldlog;
     string str;
@@ -139,7 +138,7 @@ vector<Log> DataAccess :: LoadIssueBookData()
 
         i = str.find(";");
         oldlog.setstatus(str.substr(0, i)); // Divide str by spacebar and get count
-        
+
         IssuedBookvector.push_back(oldlog); // Add to Bookvector
     }
     fin.close();
@@ -180,7 +179,7 @@ vector<User> DataAccess::LoadUserData()
 }
 
 // * This method is used to Add a new user in the database
-void DataAccess::AddUser(string name,string username, string password)
+void DataAccess::AddUser(string name, string username, string password)
 {
     User olduser;
     olduser.setname(name);
@@ -201,4 +200,24 @@ void DataAccess::AddUser(string name,string username, string password)
     {
         cout << "Unable to open User.txt file";
     }
+}
+
+string DataAccess::ExternalBookRequest(string username, string isbn, string libraryname)
+{
+    string status = "NO";
+
+    
+    ofstream userFile("DataFiles/ExternalInterfaceLogs.txt", std::ofstream::out | std::ofstream::app);
+    if (userFile.is_open())
+    {
+        userFile << username+";"+isbn +";"+libraryname  << endl;
+        userFile.close();
+        status = "YES";
+    }
+    else
+    {
+        cout << "Unable to open Books.txt file";
+    }
+
+    return status;
 }

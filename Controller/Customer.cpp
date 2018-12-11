@@ -8,6 +8,8 @@
 
 using namespace std;
 
+extern string loggedinUser;
+
 Functions functions;
 DataAccess dataAccessC;
 
@@ -72,21 +74,33 @@ int Customer::RequestBookLoan(std::string isbn)
     }
 
     // If the book is not available, (count = 0), then the system will call external interface
-    else if(!isavailable){
+    else if (!isavailable)
+    {
 
-        ExternalSystem ext;
+        //        Customer c;
 
-        string library_name = "Pollak Library CSU Fullerton";
-        string msg = ext.BookRequestProcess(library_name);
-        cout << "\n\t\t"+msg;
-        bookloan = 2;
+        string library_name = "Pollak Library CSUF";
+        string msg = ExternalBookRequest(loggedinUser,isbn, library_name);
+        //cout << "\n\t\t" + msg;
+
+        
+        if (msg == "YES")
+        {
+            string persist = dataAccessC.ExternalBookRequest(loggedinUser, isbn, library_name);
+            cout << "\n\t\tRequested Book is Available at: " + library_name + ". We will inform you once available for loan at our Library....";
+            bookloan = 2;
+        }
+        else{
+
+            cout << "\n\t\t Requested Book is not Available at: " + library_name;
+        }
     }
 
     return bookloan;
 }
 
 // * This method is used to show the details of the book borrowed by the customer.
-void CustomerUI::showdetails()
+void Customer::showdetails()
 {
     int i;
     cout << "This is the details:" << endl;
@@ -161,14 +175,14 @@ bool Customer::isAvailable(std::string isbn)
 }
 
 // * This methods lists all the book (along with details) which is available in the dataabase
-void CustomerUI::listbooks()
+void Customer::listbooks()
 {
     int i;
     cout << "This is the list of all the book:" << endl;
     cout << "--------------------------------------------------------------------------------------------------------------------------" << endl;
     cout << "|       ISBN       |             Name            |      Author      |           Information           |   Availability    |" << endl;
     cout << "--------------------------------------------------------------------------------------------------------------------------" << endl;
-    
+
     for (auto i : Bookvector)
     {
         cout << "|" << setw(18) << i.getIsbn() << "|" << setw(29) << i.getName() << "|"
@@ -204,7 +218,7 @@ void CustomerUI::listbooks()
             cout << "\n\t*****************************************************************************************\n";
             dataAccessC.UpdateBookData();
             customerInterface();
-        } 
+        }
         else if(status == 2){
 
             cout << "\n\t\tAbove message is from External Interface, please get the Contact information from front desk. :)\n\n";
@@ -248,7 +262,7 @@ bool Customer::isAlreadyissued(std::string isbn)
 
     for (auto i : IssuedBookvector)
     {
-        //It checks if the isbn is matching with the userID and status is 'checked-out'. 
+        //It checks if the isbn is matching with the userID and status is 'checked-out'.
         if (i.getIsbn() == isbn && i.getUsername() == loggedinUser && i.getstatus() == "checked-out")
         {
             bool issuestatus = true;
@@ -278,11 +292,13 @@ void CustomerUI::customerInterface()
 
     if (i == 1)
     {
-        listbooks();
+        Customer c;
+        c.listbooks();
     }
     else if (i == 2)
     {
-        showdetails();
+        Customer c;
+        c.showdetails();
     }
 
     else if (i == 3)
@@ -300,5 +316,21 @@ void CustomerUI::customerInterface()
         cout << "\n\t\tPlease enter correct option :(\n";
         cout << "\n\t*****************************************************************************************\n";
         customerInterface();
+    }
+}
+
+string Customer::ExternalBookRequest(string username, string isbn, string externallibrary)
+{
+    int random = rand() % 2;
+
+    if (random == 1)
+    {
+        //\n\t\tRequested Book is Available at: " + externallibrary + ". We will inform you once available for loan at our Library....
+        return "YES";
+    }
+    else
+    {
+        //\n\t\t Requested Book is not Available at: " + externallibrary
+        return "NO";
     }
 }

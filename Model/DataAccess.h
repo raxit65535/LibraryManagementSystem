@@ -5,7 +5,7 @@
 #include "Book.h"
 #include "Log.h"
 #include "Logging.h"
-
+#include "../Controller/ExternalSystem.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -23,7 +23,7 @@ public:
 // * This class acts as a DataAccess Layer.
 // * This is a bridge between the Database and the business login of the application
 // * It contains methods to Log user data and add new user in the account
-class DataAccess : public BookDataPersistance, public Logging, public DataAccessInterface
+class DataAccess : public BookDataPersistance, public Logging, public DataAccessInterface, public ExternalSystem
 {
 public:
   vector<User> LoadUserData();
@@ -32,6 +32,7 @@ public:
   void UpdateIssueBookData();
   vector<Book> LoadBookData();
   void UpdateBookData();
+  virtual string ExternalBookRequest(string username, string isbn,string libraryname);
 };
 
 #endif

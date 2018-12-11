@@ -6,7 +6,7 @@ class ExternalSystem{
 
     public:
 
-    std::string BookRequestProcess(std::string externalLibrary);
+    virtual std::string ExternalBookRequest(std::string username,std::string isbn,std::string externalLibrary) = 0;
 
 
 };

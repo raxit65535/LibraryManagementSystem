@@ -2,6 +2,7 @@
 #define staff_h
 
 #include "../UserInterfaceLayer/UserInterface.h"
+#include "BookInventory.h"
 #include <string>
 
 class StaffInterface
@@ -11,10 +12,12 @@ class StaffInterface
 };
 
 // * This class contains method specific to the functionality related to the staff
-class Staff : public StaffInterface,public UILayer
+class Staff : public StaffInterface,public BookInventory, public UILayer
 {
   public:
-    virtual int returnIssuedBook(std::string isbn, std::string username);
+    int returnIssuedBook(std::string isbn, std::string username);
+    virtual void listbooks();
+    virtual void showdetails();
 };
 
 #endif

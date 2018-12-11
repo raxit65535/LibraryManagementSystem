@@ -2,6 +2,8 @@
 #define customerUI_h
 
 #include "../UserInterfaceLayer/UserInterface.h"
+#include "BookInventory.h"
+#include "ExternalSystem.h"
 #include <string>
 
 class CustomerInterface
@@ -14,12 +16,15 @@ class CustomerInterface
 
 // * This class implements methods from CustomerUI class.
 // * It contains methods specific to the customer
-class Customer : public CustomerUI, public CustomerInterface
+class Customer : public CustomerUI, public CustomerInterface, public BookInventory, public ExternalSystem
 {
   public:
     virtual int RequestBookLoan(std::string isbn);
     virtual bool isAvailable(std::string isbn);
     virtual bool isAlreadyissued(std::string isbn);
+    virtual void listbooks();
+    virtual void showdetails();
+    virtual std::string ExternalBookRequest(std::string username, std::string isbn, std::string externallibrary);
 };
 
 #endif

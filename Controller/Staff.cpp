@@ -99,7 +99,8 @@ void UILayer::staffInterface()
 
     if (i == 1)
     {
-        listbooks();
+        Staff s;
+        s.listbooks();
     }
     else if (i == 2)
     {
@@ -107,7 +108,8 @@ void UILayer::staffInterface()
     }
     else if (i == 3)
     {
-        showdetails();
+        Staff s;
+        s.showdetails();
     }
     else if (i == 4)
     {
@@ -128,7 +130,7 @@ void UILayer::staffInterface()
 }
 
 // * This method displayes the book to the staff
-void UILayer::listbooks()
+void Staff::listbooks()
 {
     int i;
     //Functions functions;
@@ -181,7 +183,7 @@ void UILayer::listbooks()
 }
 
 // * This method displays the details from the log file.
-void UILayer::showdetails()
+void Staff::showdetails()
 {
     int i;
     cout << "This is the details:" << endl;
