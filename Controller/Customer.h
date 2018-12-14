@@ -16,7 +16,7 @@ class CustomerInterface
 
 // * This class implements methods from CustomerUI class.
 // * It contains methods specific to the customer
-class Customer : public CustomerUI, public CustomerInterface, public BookInventory, public ExternalSystem
+class Customer : public CustomerUI, public CustomerInterface, public BookInventory
 {
   public:
     virtual int RequestBookLoan(std::string isbn);
@@ -24,7 +24,7 @@ class Customer : public CustomerUI, public CustomerInterface, public BookInvento
     virtual bool isAlreadyissued(std::string isbn);
     virtual void listbooks();
     virtual void showdetails();
-    virtual std::string ExternalBookRequest(std::string username, std::string isbn, std::string externallibrary);
+    //virtual std::string ExternalBookRequest(std::string username, std::string isbn, std::string externallibrary);
 };
 
 #endif
