@@ -11,19 +11,14 @@
 
 using namespace std;
 
-// Functions functions;
-// DataAccess dataAccessC;
-
-// Manager manager;
-// Book book;
-// User user;
-
 extern vector<Book> Bookvector;
 extern vector<Log> IssuedBookvector;
 extern string loggedinUser;
 extern vector<User> Uservector;
+
 DataAccess acdata;
 
+// * This method duisplays the home interface for the staff user
 void ManagerUI::managerInterface()
 {
     int i;
@@ -56,7 +51,6 @@ void ManagerUI::managerInterface()
     }
     else if (i == 4)
     {
-
         string name, isbn, author, information;
         int count;
 
@@ -111,8 +105,6 @@ void ManagerUI::managerInterface()
             cout << "\n\t*****************************************************************************************\n";
             managerInterface();
         }
-
-        // int x = manager.AddBook(book);
     }
     else if (i == 5)
     {
@@ -163,8 +155,6 @@ void ManagerUI::managerInterface()
             cout << "\n\t*****************************************************************************************\n";
             managerInterface();
         }
-
-        //int x = manager.AddStaff(user);
     }
     else if (i == 6)
     {
@@ -183,11 +173,10 @@ void ManagerUI::managerInterface()
         staffInterface();
     }
 }
-
+/* This method displayes the book to the manager*/
 void Manager::listbooks()
 {
     int i;
-    //Functions functions;
     cout << "Books Availability in the System:" << endl;
     cout << "--------------------------------------------------------------------------------------------------------------------------" << endl;
     cout << "|       ISBN       |             Name            |      Author      |           Information           |   Availability    |" << endl;
@@ -236,6 +225,9 @@ void Manager::listbooks()
     }
 }
 
+/*
+This method is used to display UI for returning the book
+*/
 void ManagerUI::returnBookInterface()
 {
     string username, isbn;
@@ -248,7 +240,6 @@ void ManagerUI::returnBookInterface()
     cout << "\n\t\tEnter Username of Book Borrower : ";
     cin >> username;
 
-    //Staff st;
     Manager mg;
     retbook = mg.returnIssuedBook(isbn, username);
 
@@ -268,6 +259,9 @@ void ManagerUI::returnBookInterface()
     }
 }
 
+/*
+This method displayes thhe details about the books and its availability
+*/
 void Manager::showdetails()
 {
     int i;
@@ -318,6 +312,7 @@ void Manager::showdetails()
     }
 }
 
+/*This method adds the staff user in the system*/
 int Manager::AddStaff(string name, string username, string password)
 {
     User staffmember;
@@ -345,6 +340,7 @@ int Manager::AddStaff(string name, string username, string password)
     return 1;
 }
 
+/*This method adds books in the database*/
 int Manager::AddBook(string name, string isbn, string author, string information, int count)
 {
 
@@ -376,6 +372,7 @@ int Manager::AddBook(string name, string isbn, string author, string information
     return 1;
 }
 
+/*This method is used to check if the book is available */
 bool Manager::isBookAvail(string isbn)
 {
     bool availability = false;
@@ -396,6 +393,7 @@ bool Manager::isBookAvail(string isbn)
     return availability;
 }
 
+/*This method is used to return the book issues by the customer*/
 int Manager::returnIssuedBook(string isbn, string username)
 {
     int ret = 0;

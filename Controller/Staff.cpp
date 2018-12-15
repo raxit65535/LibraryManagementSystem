@@ -66,7 +66,7 @@ int Staff::returnIssuedBook(string isbn, string username)
 
             //increases the count of the book from Bookvector after it is returned and update the database
             for (int j = 0; j < Bookvector.size(); j++)
-            {                
+            {
                 if (Bookvector[j].getIsbn() == isbn)
                 {
 
@@ -124,7 +124,7 @@ void UILayer::staffInterface()
     {
         cout << "\n\t*****************************************************************************************\n";
         cout << "\n\t\tPlease enter correct option :(\n";
-         cout << "\n\t*****************************************************************************************\n";
+        cout << "\n\t*****************************************************************************************\n";
         staffInterface();
     }
 }
@@ -133,7 +133,6 @@ void UILayer::staffInterface()
 void Staff::listbooks()
 {
     int i;
-    //Functions functions;
     cout << "Books Availability in the System:" << endl;
     cout << "--------------------------------------------------------------------------------------------------------------------------" << endl;
     cout << "|       ISBN       |             Name            |      Author      |           Information           |   Availability    |" << endl;

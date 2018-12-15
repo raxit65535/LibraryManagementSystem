@@ -1,14 +1,20 @@
 Following is the hierarchal (physical directory and subdirectory) listing of the files (source, header, data, etc.) in our solution.  
 
-Controller	
+Controller
+	BookInventory.h	
 	Customer.cpp
 	Customer.h
+	ExternalSystem.cpp
+	ExternalSystem.h
 	Functions.cpp
 	Functions.h
+	Manager.cpp
+	Manager.h
 	Staff.cpp
 	Staff.h
 DataFiles	
 	Books.txt
+	ExternalInterfaceLogs.txt
 	IssuedBook.txt
 	User.txt
 Model	
@@ -20,8 +26,8 @@ Model
 	Logging.h
 	User.h
 UserInterfaceLayer	
-	UserInterface.h
-README.md	
+	UserInterface.h	
+code
 code.exe	
-lms	
-main.cpp	
+main.cpp
+README.md	

@@ -14,10 +14,13 @@ string loggedinUser;
 Functions fun;
 DataAccess dAccess;
 
+/*
+User data, book data and issue book data is loaded before the system starts
+*/
 int main()
 {
     dAccess.LoadUserData();
     dAccess.LoadBookData();
     dAccess.LoadIssueBookData();
-    fun.startup();    
+    fun.startup();
 }

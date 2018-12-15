@@ -4,9 +4,11 @@
 #include <iostream>
 #include <string>
 
+/*
+Implementation that interacts with Pollak Library external entity
+*/
 class PollakLibrary : public ExternalSystem
 {
-
   public:
     virtual string ExternalBookRequest(string username, string isbn, string libraryname)
     {
@@ -31,14 +33,14 @@ class PollakLibrary : public ExternalSystem
         }
         else
         {
-            //\n\t\t Requested Book is not Available at: " + externallibrary
             return "NO";
         }
-
-        //return "YES";
     }
 };
 
+/*
+Implementation that interacts with Pollak Library external entity
+*/
 class HopeInternational : public ExternalSystem
 {
   public:
@@ -65,7 +67,6 @@ class HopeInternational : public ExternalSystem
         }
         else
         {
-            //\n\t\t Requested Book is not Available at: " + externallibrary
             return "NO";
         }
     }
