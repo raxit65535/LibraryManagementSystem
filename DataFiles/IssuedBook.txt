@@ -6,3 +6,6 @@ raxit;1234;TestBook1;07-12-2018;16-01-2019;returned
 raxit;1234;TestBook1;10-12-2018;19-01-2019;returned
 raxit;56786;datastructures;10-12-2018;19-01-2019;returned
 raxit;1234;TestBook1;11-12-2018;20-01-2019;returned
+raxit;1234;TestBook1;11-12-2018;20-01-2019;checked-out
+raxit;9088775;softwaredesign;11-12-2018;20-01-2019;checked-out
+raxit;56786;datastructures;11-12-2018;20-01-2019;checked-out

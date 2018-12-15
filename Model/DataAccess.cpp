@@ -202,22 +202,21 @@ void DataAccess::AddUser(string name, string username, string password)
     }
 }
 
-string DataAccess::ExternalBookRequest(string username, string isbn, string libraryname)
-{
-    string status = "NO";
+// string DataAccess::ExternalBookRequest(string username, string isbn, string libraryname)
+// {
+//     string status = "NO";
 
-    
-    ofstream userFile("DataFiles/ExternalInterfaceLogs.txt", std::ofstream::out | std::ofstream::app);
-    if (userFile.is_open())
-    {
-        userFile << username+";"+isbn +";"+libraryname  << endl;
-        userFile.close();
-        status = "YES";
-    }
-    else
-    {
-        cout << "Unable to open Books.txt file";
-    }
+//     ofstream userFile("DataFiles/ExternalInterfaceLogs.txt", std::ofstream::out | std::ofstream::app);
+//     if (userFile.is_open())
+//     {
+//         userFile << username+";"+isbn +";"+libraryname  << endl;
+//         userFile.close();
+//         status = "YES";
+//     }
+//     else
+//     {
+//         cout << "Unable to open Books.txt file";
+//     }
 
-    return status;
-}
+//     return status;
+// }

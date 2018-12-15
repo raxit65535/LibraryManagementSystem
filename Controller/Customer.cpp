@@ -3,6 +3,7 @@
 #include "Functions.h"
 #include "../Model/Log.h"
 #include "ExternalSystem.h"
+#include "ExternalSystem.cpp"
 #include <iomanip>
 #include <iostream>
 
@@ -79,14 +80,15 @@ int Customer::RequestBookLoan(std::string isbn)
 
         //        Customer c;
 
-        string library_name = "Pollak Library CSUF";
-        string msg = ExternalBookRequest(loggedinUser,isbn, library_name);
+        string library_name = "Hope International University";
+        PollakLibrary p;
+        string msg = p.ExternalBookRequest(loggedinUser,isbn,library_name);
+        //ExternalBookRequest(loggedinUser,isbn, library_name);
         //cout << "\n\t\t" + msg;
-
         
         if (msg == "YES")
         {
-            string persist = dataAccessC.ExternalBookRequest(loggedinUser, isbn, library_name);
+            //string persist = dataAccessC.ExternalBookRequest(loggedinUser, isbn, library_name);
             cout << "\n\t\tRequested Book is Available at: " + library_name + ". We will inform you once available for loan at our Library....";
             bookloan = 2;
         }
@@ -316,21 +318,5 @@ void CustomerUI::customerInterface()
         cout << "\n\t\tPlease enter correct option :(\n";
         cout << "\n\t*****************************************************************************************\n";
         customerInterface();
-    }
-}
-
-string Customer::ExternalBookRequest(string username, string isbn, string externallibrary)
-{
-    int random = rand() % 2;
-
-    if (random == 1)
-    {
-        //\n\t\tRequested Book is Available at: " + externallibrary + ". We will inform you once available for loan at our Library....
-        return "YES";
-    }
-    else
-    {
-        //\n\t\t Requested Book is not Available at: " + externallibrary
-        return "NO";
     }
 }
